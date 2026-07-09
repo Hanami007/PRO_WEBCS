@@ -15,6 +15,7 @@ import { ContactSeedService } from './contacts/contact-seed.service';
 import { AboutSeedService } from './about/about-seed.service';
 import { ResourceSeedService } from './resources/resource-seed.service';
 import { AnnouncementSeedService } from './announcement/announcement-seed.service';
+import { CarouselSeedService } from './carousel/carousel-seed.service';
 
 const runSeed = async () => {
   const app = await NestFactory.create(SeedModule);
@@ -29,6 +30,7 @@ const runSeed = async () => {
   await app.get(AboutSeedService).run();
   await app.get(ResourceSeedService).run();
   await app.get(AnnouncementSeedService).run();
+  await app.get(CarouselSeedService).run();
 
   //IMPORTANT!! Program must be seeded before Study Plan
   await app.get(CourseSeedService).run();

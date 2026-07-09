@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from '../config/database.config';
 import appConfig from 'src/config/app.config';
+import authConfig from '../../auth/config/auth.config';
+import fileConfig from '../../files/config/file.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from '../typeorm-config.service';
 import { DataSource, DataSourceOptions } from 'typeorm';
@@ -26,7 +28,7 @@ import { AnnouncementSeedModule } from './announcement/announcement-seed.module'
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig, appConfig],
+      load: [databaseConfig, appConfig, authConfig, fileConfig],
       envFilePath: ['.env'],
     }),
     TypeOrmModule.forRootAsync({
