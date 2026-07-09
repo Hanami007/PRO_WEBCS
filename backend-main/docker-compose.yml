@@ -22,7 +22,7 @@ services:
     networks:
       - backend
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql
 
   pgadmin:
     image: dpage/pgadmin4

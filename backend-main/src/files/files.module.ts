@@ -45,10 +45,25 @@ import { v4 as uuidv4 } from 'uuid';
                 const baseFilesPath =
                   configService.getOrThrow('file.path', { infer: true }) ||
                   './files';
-                const prefix =
-                  typeof req.params.prefix === 'string'
-                    ? req.params.prefix
-                    : 'no-prefix';
+                let prefix = 'no-prefix';
+                if (typeof req.params.prefix === 'string') {
+                  prefix = req.params.prefix;
+                } else {
+                  const url = req.originalUrl || req.url || '';
+                  if (url.includes('/articles')) {
+                    prefix = 'articles';
+                  } else if (url.includes('/testimonials')) {
+                    prefix = 'testimonials';
+                  } else if (url.includes('/rooms')) {
+                    prefix = 'rooms';
+                  } else if (url.includes('/features')) {
+                    prefix = 'features';
+                  } else if (url.includes('/personnels') || url.includes('/personnel')) {
+                    prefix = 'personnel';
+                  } else if (url.includes('/users')) {
+                    prefix = 'users';
+                  }
+                }
 
                 const now = new Date();
                 const year = now.getUTCFullYear().toString();
