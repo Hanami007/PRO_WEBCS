@@ -1,0 +1,43 @@
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v3.6.8
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+      - "./traefik.yaml:/etc/traefik/traefik.yaml:ro"
+    networks:
+      - net
+
+  jenkins:
+    container_name: jenkins
+    build: .
+    restart: unless-stopped
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "jenkins_data:/var/jenkins_home"
+    networks:
+      - net
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jenkins.rule=Host(`jenkins.csmju.com`)
+      - traefik.http.services.jenkins.loadbalancer.server.port=8080
+      - traefik.http.routers.jenkins.entrypoints=websecure
+      - traefik.http.routers.jenkins.middlewares=jenkins-headers
+      - traefik.http.middlewares.jenkins-headers.headers.customrequestheaders.X-Forwarded-Proto=https
+    user: jenkins
+    group_add:
+      - 988
+
+volumes:
+  jenkins_data:
+
+networks:
+  net:

@@ -1,0 +1,63 @@
+services:
+  traefik:
+    image: traefik:v3.6.9
+    networks:
+      - traefik-proxy
+    ports:
+      - target: 80 # Container port (Traefik web entry point)
+        published: 80 # Host port exposed on the nodes
+        protocol: tcp
+        # 'host' mode binds directly to the node's IP where the task runs.
+        # 'ingress' mode uses Swarm's Routing Mesh (load balances across nodes).
+        # Choose based on your load balancing strategy. 'host' is often simpler if using an external LB.
+        mode: host
+      - target: 443 # Container port ( Traefik websecure entry point)
+        published: 443 # Host port
+        protocol: tcp
+        mode: host
+    volumes:
+      # Mount the Docker socket for the Swarm provider
+      # This MUST be run from a manager node to access the Swarm API via the socket.
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Swarm API socket
+      - traefik-certs:/letsencrypt
+    command:
+      - "--providers.swarm.endpoint=unix:///var/run/docker.sock"
+      - "--providers.swarm.exposedbydefault=false"
+      # MUST perfectly match your external network name
+      - "--providers.swarm.network=traefik-proxy"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      # Force HTTP to HTTPS
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      # Automated Let's Encrypt
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.letsencrypt.acme.email=YOUR_EMAIL@EXAMPLE.COM" # UPDATE TO YOUR EMAIL
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--api.dashboard=false"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        # Dashboard Routing - CHANGE THIS DOMAIN
+        - "traefik.http.routers.dashboard.rule=Host(`traefik.domain.com`)" # UPDATE TO YOUR DOMAIN
+        - "traefik.http.routers.dashboard.entrypoints=websecure"
+        - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+        - "traefik.http.routers.dashboard.service=api@internal"
+        # Dashboard Authentication
+        # Note the $$ instead of $ to prevent YAML interpolation errors
+        - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$4PCgGKcy$$mNz.uht5jk7Zv.DAAOQXU1"
+        - "traefik.http.routers.dashboard.middlewares=dashboard-auth@swarm"
+        # Dummy port required by Swarm for the internal API service
+        - "traefik.http.services.dashboard-dummy.loadbalancer.server.port=8080"
+
+volumes:
+  traefik-certs:
+
+networks:
+  traefik-proxy:
+    driver: overlay
+    external: true

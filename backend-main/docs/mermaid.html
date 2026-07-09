@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <title>mju-cs-backend entity specification</title>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .bd-aside a {
+        padding: 0.1875rem 0.5rem;
+        margin-top: 0.125rem;
+        margin-left: 0.3125rem;
+        color: var(--bs-body-color);
+      }
+
+      .bd-aside a:hover,
+      .bd-aside a:focus {
+        color: var(--bs-body-color);
+        background-color: rgba(121, 82, 179, 0.1);
+      }
+
+      .bd-aside .active {
+        font-weight: 600;
+        color: var(--bs-body-color);
+      }
+
+      .bd-aside .btn {
+        padding: 0.25rem 0.5rem;
+        font-weight: 600;
+        color: var(--bs-body-color);
+      }
+
+      .bd-aside .btn:hover,
+      .bd-aside .btn:focus {
+        color: var(--bs-body-color);
+        background-color: rgba(121, 82, 179, 0.1);
+      }
+
+      .bd-aside .btn:focus {
+        box-shadow: 0 0 0 1px rgba(121, 82, 179, 0.7);
+      }
+
+      .bd-aside .btn::before {
+        width: 1.25em;
+        line-height: 0;
+        content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ccc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+        transition: transform 0.35s ease;
+
+        /* rtl:raw:
+    transform: rotate(180deg) translateX(-2px);
+    */
+        transform-origin: 0.5em 50%;
+      }
+
+      .bd-aside .btn[aria-expanded="true"]::before {
+        transform: rotate(90deg) /* rtl:ignore */;
+      }
+
+      /* Layout */
+      @media (min-width: 1200px) {
+        html {
+          scroll-padding-top: 4rem;
+        }
+
+        body {
+          display: grid;
+          grid-template-rows: auto;
+          grid-template-columns: 4fr 1fr;
+          gap: 1rem;
+        }
+
+        .bd-header {
+          position: fixed;
+          top: 0;
+          /* rtl:begin:ignore */
+          right: 0;
+          left: 0;
+          /* rtl:end:ignore */
+          z-index: 1030;
+          grid-column: 1 / span 3;
+        }
+
+        .bd-aside,
+        .bd-cheatsheet {
+          padding-top: 4rem;
+        }
+
+        /**
+      * 1. Too bad only Firefox supports subgrids ATM
+      */
+        .bd-cheatsheet,
+        .bd-cheatsheet section,
+        .bd-cheatsheet article {
+          display: inherit; /* 1 */
+          grid-template-rows: auto;
+          grid-template-columns: 4fr;
+          grid-column: 1 / span 2;
+          gap: inherit; /* 1 */
+        }
+
+        .bd-aside {
+          grid-area: 1 / 3;
+          scroll-margin-top: 4rem;
+        }
+
+        .bd-cheatsheet section,
+        .bd-cheatsheet section > h2 {
+          top: 2rem;
+          scroll-margin-top: 2rem;
+        }
+
+        .bd-cheatsheet section > h2::before {
+          position: absolute;
+          /* rtl:begin:ignore */
+          top: 0;
+          right: 0;
+          bottom: -2rem;
+          left: 0;
+          /* rtl:end:ignore */
+          z-index: -1;
+          content: "";
+        }
+
+        .bd-cheatsheet article,
+        .bd-cheatsheet .bd-heading {
+          top: 8rem;
+          scroll-margin-top: 8rem;
+        }
+
+        .bd-cheatsheet .bd-heading {
+          z-index: 1;
+        }
+      }
+
+      .hide {
+        display: none !important;
+      }
+
+      .mermaid-box {
+        height: 60vh;
+        min-height: 600px;
+        width: 85vw;
+      }
+
+      .mermaid {
+        height: 60vh;
+        min-height: 600px;
+        width: 85vw;
+        overflow: hidden;
+
+        svg {
+          height: 100% !important;
+          width: 100% !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-body-tertiary">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">mju-cs-backend</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="mermaid.html"
+                >ER Diagram</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <aside
+      class="bd-aside sticky-xl-top text-body-secondary align-self-start mb-3 mb-xl-5 px-2"
+    >
+      <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">Diagram</h2>
+      <nav class="small" id="toc">
+        <ul class="list-unstyled">
+          <li class="my-2">
+            <a
+              class="anchor-link"
+              href="#entity-relationship-mermiad-diagram"
+              aria-label="Link to this section: ER Diagram"
+            >
+              ER Diagram
+            </a>
+          </li>
+
+          <li class="my-2">
+            <a
+              class="anchor-link"
+              href="#entity-relationship-mermiad-source-code"
+              aria-label="Link to this section: Mermaid source code"
+            >
+              Mermaid source code
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="bd-cheatsheet container-fluid bg-body">
+      <section id="content">
+        <h2 id="entity-relationship-mermiad-diagram" class="title is-3">
+          ER Diagram
+          <a
+            class="anchor-link"
+            href="#entity-relationship-mermiad-diagram"
+            aria-label="Link to this section: Entity Relationship Diagram"
+            >#</a
+          >
+        </h2>
+
+        <h3 class="title is-4">Diagram</h3>
+        <div class="mermaid-box">
+          <pre id="mermaid-pre" class="mermaid">
+                %%{init: {'theme':'dark'}}%%
+
+erDiagram
+
+"file(File)" {
+  *uuid id    PK    
+  *string path    
+  *timestamp createdAt    
+}
+
+
+
+"role(Role)" {
+  *number id    PK    
+  *string name    
+}
+
+
+
+"user(User)" {
+  *uuid id    PK    
+  string name    
+  *string email    UK    
+  string password    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  number role    FK    
+  uuid photo    FK    
+}
+
+
+"user(User)"  }o  --  o|  "role(Role)":  "roleId"
+"user(User)"  }o  --  o|  "file(File)":  "photoId"
+
+"testimonials(Testimonial)" {
+  *uuid id    PK    
+  *string(255) authorName      "ชื่อผู้ให้คำนิยม"  
+  *string(255) authorTitle      "ตำแหน่งหรือบริษัท (เช่น CEO at Google)"  
+  *text content      "เนื้อหา"  
+  *boolean isActive    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"testimonials(Testimonial)"  |o  --  o|  "file(File)":  "imageId"
+
+"room_type(RoomType)" {
+  *uuid id    PK    
+  *string name    
+  string description    
+}
+
+
+
+"course_group(CourseGroup)" {
+  *uuid id    PK    
+  *string name    
+  number credits    
+  uuid parent    FK    
+}
+
+
+"course_group(CourseGroup)"  }o  --  o|  "course_group(CourseGroup)":  "parentId"
+
+"course(Course)" {
+  *uuid id    PK    
+  *varchar(255) code    UK      "รหัสวิชา"  
+  *varchar(255) titleTh      "ชื่อวิชาภาษาไทย"  
+  *varchar(255) titleEn      "ชื่อวิชาภาษาอังกฤษ"  
+  text description      "รายละเอียดวิชา"  
+  *number credits      "หน่วยกิต"  
+  *number lectureHours      "จำนวนชั่วโมงเรียนทฤษฎีต่อสัปดาห์"  
+  *number labHours      "จำนวนชั่วโมงเรียนปฏิบัติต่อสัปดาห์"  
+  *number selfStudyHours      "จำนวนชั่วโมงศึกษาค้นคว้าด้วยตัวเองต่อสัปดาห์"  
+  *boolean isActive      "สำหรับซ่อนรายวิชา"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+}
+
+
+
+"program_course(ProgramCourse)" {
+  *uuid id    PK    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid program    FK    
+  uuid course    FK    
+  uuid group    FK    
+}
+
+
+"program_course(ProgramCourse)"  }o  --  o|  "program(Program)":  "programId"
+"program_course(ProgramCourse)"  }o  --  o|  "course(Course)":  "courseId"
+"program_course(ProgramCourse)"  }o  --  o|  "course_group(CourseGroup)":  "groupId"
+
+"program(Program)" {
+  *uuid id    PK    
+  *varchar code    UK      "รหัสหลักสูตร"  
+  *varchar nameTh      "ชื่อหลักสูตรภาษาไทย"  
+  *varchar nameEn      "ชื่อหลักสูตรภาษาอังกฤษ"  
+  varchar degreeThFull      "ชื่อเต็มปริญญาภาษาไทย"  
+  varchar degreeEnFull      "ชื่อเต็มปริญญาภาษาอังกฤษ"  
+  varchar degreeTh      "ชื่อย่อปริญญาภาษาไทย"  
+  varchar degreeEn      "ชื่อย่อปริญญาภาษาอังกฤษ"  
+  *number credits      "จำนวนหน่วยกิตที่เรียนตลอดหลักสูตร"  
+  varchar revision      "ปีที่ปรับปรังหลักสูตร"  
+  varchar duration      "ระยะเวลาของหลักสูตร"  
+  varchar languages      "ภาษาที่ใช้"  
+  *boolean isCurrent      "เป็นหลักสูตรปัจจุบันหรือไม่"  
+  *boolean isActive      "แสดงผลบนหน้าเว็บหรือไม่"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+}
+
+
+
+"study_plan(StudyPlan)" {
+  *uuid id    PK    
+  string label      "ชื่อที่จะแสดงในแผนการเรียน"  
+  *number year      "ปีที่เรียน"  
+  *number semester      "เทอม 1, 2 หรือ 3 ซัมเมอร์"  
+  number credit      "หน่วยกิตที่แสดง"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid program    FK    
+  uuid course    FK    
+}
+
+
+"study_plan(StudyPlan)"  }o  --  o|  "program(Program)":  "programId"
+"study_plan(StudyPlan)"  }o  --  o|  "course(Course)":  "courseId"
+
+"building(Building)" {
+  *uuid id    PK    
+  *varchar(255) name    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"building(Building)"  |o  --  o|  "file(File)":  "imageId"
+
+"personnel_status(PersonnelStatus)" {
+  *uuid id    PK    
+  *varchar(255) name      "สถานะการทำงานของบุคลากร"  
+}
+
+
+
+"personnel(Personnel)" {
+  *uuid id    PK    
+  varchar(13) citizenId      "รหัสบัตรประชาชน (Citizen ID)"  
+  varchar(50) prefix      "คำนำหน้าชื่อ (e.g., Dr., Mr., Ms.)"  
+  *varchar(255) fullnameTh      "ชื่อ-นามสกุล (ไทย)"  
+  *varchar(255) fullnameEn      "ชื่อ-นามสกุล (อังกฤษ)"  
+  varchar(255) academicPosition      "ตำแหน่งทางวิชาการ (e.g., Professor, Lecturer)"  
+  varchar(255) administrativePosition      "ตำแหน่งทางบริหาร (e.g., Dean, Head of Dept)"  
+  varchar(255) email      "อีเมล"  
+  varchar(50) phoneNumber      "เบอร์โทรศัพท์"  
+  text education      "ประวัติการศึกษา"  
+  *varchar(100) personnelType      "ประเภทของบุคลากร"  
+  varchar(100) academicType      "ประเภททางมหาวิทยาลัย"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid profileImage    FK,UK    
+  uuid workStatus    FK    
+}
+
+
+"personnel(Personnel)"  |o  --  o|  "file(File)":  "profileImageId"
+"personnel(Personnel)"  }o  --  o|  "personnel_status(PersonnelStatus)":  "workStatusId"
+
+"room(Room)" {
+  *uuid id    PK    
+  *varchar(255) code    
+  *varchar(255) nameTh    
+  varchar(255) nameEn    
+  *varchar(10) floor    
+  int capacity      "จำนวนที่นั่ง"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid personnel    FK    
+  uuid building    FK    
+  uuid image    FK,UK    
+  uuid type    FK    
+}
+
+
+"room(Room)"  }o  --  o|  "personnel(Personnel)":  "personnelId"
+"room(Room)"  }o  --  o|  "building(Building)":  "buildingId"
+"room(Room)"  |o  --  o|  "file(File)":  "imageId"
+"room(Room)"  }o  --  o|  "room_type(RoomType)":  "typeId"
+
+"projects(Project)" {
+  *uuid id    PK    
+  *varchar(255) code    
+  *varchar(255) name    
+  *varchar(255) year    
+  *text detail    
+  *text editors      "รายชื่อผู้จัดทำ"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  *uuid chairman    FK    
+  uuid director1    FK    
+  uuid director2    FK    
+  uuid file    FK,UK    
+}
+
+
+"projects(Project)"  }|  --  ||  "personnel(Personnel)":  "chairmanId"
+"projects(Project)"  }o  --  o|  "personnel(Personnel)":  "director1Id"
+"projects(Project)"  }o  --  o|  "personnel(Personnel)":  "director2Id"
+"projects(Project)"  |o  --  o|  "file(File)":  "fileId"
+
+"features(Feature)" {
+  *uuid id    PK    
+  *string(255) title    
+  text description    
+  string value    
+  string prefix    
+  string suffix    
+  string type    
+  *boolean isActive    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"features(Feature)"  |o  --  o|  "file(File)":  "imageId"
+
+"events(Event)" {
+  *uuid id    PK    
+  *string(255) title    
+  *text description    
+  *string(255) organizer    
+  *timestamp startsAt    
+  timestamp endsAt    
+  *string location    
+  varchar(255) externalLink    
+  *boolean isActive    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid poster    FK,UK    
+}
+
+
+"events(Event)"  |o  --  o|  "file(File)":  "posterId"
+
+"contacts(Contact)" {
+  *uuid id    PK    
+  varchar(255) title      "หัวข้อการติดต่อ"  
+  text description      "คำอธิบายหัวข้อ"  
+  *varchar type      "ประเภทข้อมูล"  
+  *varchar(255) value      "สำหรับเก็บข้อมูลติดต่อ"  
+  varchar(255) label      "ประโยคแสดงผลสำหรับแทนที่ข้อมูล url"  
+  *int sortOrder    
+  *boolean isActive    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"contacts(Contact)"  |o  --  o|  "file(File)":  "imageId"
+
+"complain(Complain)" {
+  *uuid id    PK    
+  *varchar(255) title    
+  *text detail    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"complain(Complain)"  |o  --  o|  "file(File)":  "imageId"
+
+"carousels(Carousel)" {
+  *uuid id    PK    
+  *string(255) title    
+  text description    
+  *boolean isActive    
+  *int sortOrder    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"carousels(Carousel)"  |o  --  o|  "file(File)":  "imageId"
+
+"article(Article)" {
+  *uuid id    PK    
+  *text slug    UK    
+  *varchar(255) title    
+  text content    
+  varchar link    
+  varchar category    
+  *boolean published    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  uuid thumbnail    FK,UK    
+}
+
+
+"article(Article)"  |o  --  o|  "file(File)":  "thumbnailId"
+
+"article_image(ArticleImage)" {
+  *uuid id    PK    
+  uuid article    FK    
+  uuid file    FK,UK    
+}
+
+
+"article_image(ArticleImage)"  }o  --  o|  "article(Article)":  "articleId"
+"article_image(ArticleImage)"  |o  --  o|  "file(File)":  "fileId"
+
+"about_sections(AboutSection)" {
+  *uuid id    PK    
+  *string(100) slug    UK    
+  *string(255) title    
+  *int sortOrder    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+}
+
+
+
+"about_contents(AboutContent)" {
+  *uuid id    PK    
+  *string(50) layoutType      "ประเภทเลย์เอาท์ของเนื้อหา"  
+  string(255) title    
+  text body    
+  *int sortOrder    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid section    FK    
+  uuid image    FK,UK    
+}
+
+
+"about_contents(AboutContent)"  }o  --  o|  "about_sections(AboutSection)":  "sectionId"
+"about_contents(AboutContent)"  |o  --  o|  "file(File)":  "imageId"
+
+"alumni(Alumni)" {
+  *uuid id    PK    
+  *varchar(255) fullName      "ชื่อ-นามสกุล"  
+  *varchar(255) cohort      "รุ่น"  
+  *varchar(255) workplace      "สถานที่ทำงาน"  
+  *varchar(255) position      "ตำแหน่งงาน"  
+  text quote    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid profileImage    FK,UK    
+}
+
+
+"alumni(Alumni)"  |o  --  o|  "file(File)":  "profileImageId"
+
+                </pre
+          >
+        </div>
+
+        <h3 class="title is-4">
+          <a
+            class="anchor-link"
+            href="/mju-cs-backend.svg"
+            target="_blank"
+            aria-label="Link to this section: Entity Relationship Diagram Image"
+            >Image</a
+          >
+        </h3>
+      </section>
+
+      <div class="mx-auto p-2" style="width: 100%"></div>
+
+      <section id="content">
+        <h2 id="entity-relationship-mermiad-source-code" class="title is-3">
+          Mermaid source code
+          <a
+            class="anchor-link"
+            href="#entity-relationship-mermiad-source-code"
+            aria-label="Link to this section: Mermaid source code"
+            >#</a
+          >
+        </h2>
+
+        <textarea rows="10" class="form-control meramid-source-code">
+%%{init: {'theme':'dark'}}%%
+
+erDiagram
+
+"file(File)" {
+  *uuid id    PK    
+  *string path    
+  *timestamp createdAt    
+}
+
+
+
+"role(Role)" {
+  *number id    PK    
+  *string name    
+}
+
+
+
+"user(User)" {
+  *uuid id    PK    
+  string name    
+  *string email    UK    
+  string password    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  number role    FK    
+  uuid photo    FK    
+}
+
+
+"user(User)"  }o  --  o|  "role(Role)":  "roleId"
+"user(User)"  }o  --  o|  "file(File)":  "photoId"
+
+"testimonials(Testimonial)" {
+  *uuid id    PK    
+  *string(255) authorName      "ชื่อผู้ให้คำนิยม"  
+  *string(255) authorTitle      "ตำแหน่งหรือบริษัท (เช่น CEO at Google)"  
+  *text content      "เนื้อหา"  
+  *boolean isActive    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"testimonials(Testimonial)"  |o  --  o|  "file(File)":  "imageId"
+
+"room_type(RoomType)" {
+  *uuid id    PK    
+  *string name    
+  string description    
+}
+
+
+
+"course_group(CourseGroup)" {
+  *uuid id    PK    
+  *string name    
+  number credits    
+  uuid parent    FK    
+}
+
+
+"course_group(CourseGroup)"  }o  --  o|  "course_group(CourseGroup)":  "parentId"
+
+"course(Course)" {
+  *uuid id    PK    
+  *varchar(255) code    UK      "รหัสวิชา"  
+  *varchar(255) titleTh      "ชื่อวิชาภาษาไทย"  
+  *varchar(255) titleEn      "ชื่อวิชาภาษาอังกฤษ"  
+  text description      "รายละเอียดวิชา"  
+  *number credits      "หน่วยกิต"  
+  *number lectureHours      "จำนวนชั่วโมงเรียนทฤษฎีต่อสัปดาห์"  
+  *number labHours      "จำนวนชั่วโมงเรียนปฏิบัติต่อสัปดาห์"  
+  *number selfStudyHours      "จำนวนชั่วโมงศึกษาค้นคว้าด้วยตัวเองต่อสัปดาห์"  
+  *boolean isActive      "สำหรับซ่อนรายวิชา"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+}
+
+
+
+"program_course(ProgramCourse)" {
+  *uuid id    PK    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid program    FK    
+  uuid course    FK    
+  uuid group    FK    
+}
+
+
+"program_course(ProgramCourse)"  }o  --  o|  "program(Program)":  "programId"
+"program_course(ProgramCourse)"  }o  --  o|  "course(Course)":  "courseId"
+"program_course(ProgramCourse)"  }o  --  o|  "course_group(CourseGroup)":  "groupId"
+
+"program(Program)" {
+  *uuid id    PK    
+  *varchar code    UK      "รหัสหลักสูตร"  
+  *varchar nameTh      "ชื่อหลักสูตรภาษาไทย"  
+  *varchar nameEn      "ชื่อหลักสูตรภาษาอังกฤษ"  
+  varchar degreeThFull      "ชื่อเต็มปริญญาภาษาไทย"  
+  varchar degreeEnFull      "ชื่อเต็มปริญญาภาษาอังกฤษ"  
+  varchar degreeTh      "ชื่อย่อปริญญาภาษาไทย"  
+  varchar degreeEn      "ชื่อย่อปริญญาภาษาอังกฤษ"  
+  *number credits      "จำนวนหน่วยกิตที่เรียนตลอดหลักสูตร"  
+  varchar revision      "ปีที่ปรับปรังหลักสูตร"  
+  varchar duration      "ระยะเวลาของหลักสูตร"  
+  varchar languages      "ภาษาที่ใช้"  
+  *boolean isCurrent      "เป็นหลักสูตรปัจจุบันหรือไม่"  
+  *boolean isActive      "แสดงผลบนหน้าเว็บหรือไม่"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+}
+
+
+
+"study_plan(StudyPlan)" {
+  *uuid id    PK    
+  string label      "ชื่อที่จะแสดงในแผนการเรียน"  
+  *number year      "ปีที่เรียน"  
+  *number semester      "เทอม 1, 2 หรือ 3 ซัมเมอร์"  
+  number credit      "หน่วยกิตที่แสดง"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid program    FK    
+  uuid course    FK    
+}
+
+
+"study_plan(StudyPlan)"  }o  --  o|  "program(Program)":  "programId"
+"study_plan(StudyPlan)"  }o  --  o|  "course(Course)":  "courseId"
+
+"building(Building)" {
+  *uuid id    PK    
+  *varchar(255) name    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"building(Building)"  |o  --  o|  "file(File)":  "imageId"
+
+"personnel_status(PersonnelStatus)" {
+  *uuid id    PK    
+  *varchar(255) name      "สถานะการทำงานของบุคลากร"  
+}
+
+
+
+"personnel(Personnel)" {
+  *uuid id    PK    
+  varchar(13) citizenId      "รหัสบัตรประชาชน (Citizen ID)"  
+  varchar(50) prefix      "คำนำหน้าชื่อ (e.g., Dr., Mr., Ms.)"  
+  *varchar(255) fullnameTh      "ชื่อ-นามสกุล (ไทย)"  
+  *varchar(255) fullnameEn      "ชื่อ-นามสกุล (อังกฤษ)"  
+  varchar(255) academicPosition      "ตำแหน่งทางวิชาการ (e.g., Professor, Lecturer)"  
+  varchar(255) administrativePosition      "ตำแหน่งทางบริหาร (e.g., Dean, Head of Dept)"  
+  varchar(255) email      "อีเมล"  
+  varchar(50) phoneNumber      "เบอร์โทรศัพท์"  
+  text education      "ประวัติการศึกษา"  
+  *varchar(100) personnelType      "ประเภทของบุคลากร"  
+  varchar(100) academicType      "ประเภททางมหาวิทยาลัย"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid profileImage    FK,UK    
+  uuid workStatus    FK    
+}
+
+
+"personnel(Personnel)"  |o  --  o|  "file(File)":  "profileImageId"
+"personnel(Personnel)"  }o  --  o|  "personnel_status(PersonnelStatus)":  "workStatusId"
+
+"room(Room)" {
+  *uuid id    PK    
+  *varchar(255) code    
+  *varchar(255) nameTh    
+  varchar(255) nameEn    
+  *varchar(10) floor    
+  int capacity      "จำนวนที่นั่ง"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid personnel    FK    
+  uuid building    FK    
+  uuid image    FK,UK    
+  uuid type    FK    
+}
+
+
+"room(Room)"  }o  --  o|  "personnel(Personnel)":  "personnelId"
+"room(Room)"  }o  --  o|  "building(Building)":  "buildingId"
+"room(Room)"  |o  --  o|  "file(File)":  "imageId"
+"room(Room)"  }o  --  o|  "room_type(RoomType)":  "typeId"
+
+"projects(Project)" {
+  *uuid id    PK    
+  *varchar(255) code    
+  *varchar(255) name    
+  *varchar(255) year    
+  *text detail    
+  *text editors      "รายชื่อผู้จัดทำ"  
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  *uuid chairman    FK    
+  uuid director1    FK    
+  uuid director2    FK    
+  uuid file    FK,UK    
+}
+
+
+"projects(Project)"  }|  --  ||  "personnel(Personnel)":  "chairmanId"
+"projects(Project)"  }o  --  o|  "personnel(Personnel)":  "director1Id"
+"projects(Project)"  }o  --  o|  "personnel(Personnel)":  "director2Id"
+"projects(Project)"  |o  --  o|  "file(File)":  "fileId"
+
+"features(Feature)" {
+  *uuid id    PK    
+  *string(255) title    
+  text description    
+  string value    
+  string prefix    
+  string suffix    
+  string type    
+  *boolean isActive    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"features(Feature)"  |o  --  o|  "file(File)":  "imageId"
+
+"events(Event)" {
+  *uuid id    PK    
+  *string(255) title    
+  *text description    
+  *string(255) organizer    
+  *timestamp startsAt    
+  timestamp endsAt    
+  *string location    
+  varchar(255) externalLink    
+  *boolean isActive    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid poster    FK,UK    
+}
+
+
+"events(Event)"  |o  --  o|  "file(File)":  "posterId"
+
+"contacts(Contact)" {
+  *uuid id    PK    
+  varchar(255) title      "หัวข้อการติดต่อ"  
+  text description      "คำอธิบายหัวข้อ"  
+  *varchar type      "ประเภทข้อมูล"  
+  *varchar(255) value      "สำหรับเก็บข้อมูลติดต่อ"  
+  varchar(255) label      "ประโยคแสดงผลสำหรับแทนที่ข้อมูล url"  
+  *int sortOrder    
+  *boolean isActive    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"contacts(Contact)"  |o  --  o|  "file(File)":  "imageId"
+
+"complain(Complain)" {
+  *uuid id    PK    
+  *varchar(255) title    
+  *text detail    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"complain(Complain)"  |o  --  o|  "file(File)":  "imageId"
+
+"carousels(Carousel)" {
+  *uuid id    PK    
+  *string(255) title    
+  text description    
+  *boolean isActive    
+  *int sortOrder    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid image    FK,UK    
+}
+
+
+"carousels(Carousel)"  |o  --  o|  "file(File)":  "imageId"
+
+"article(Article)" {
+  *uuid id    PK    
+  *text slug    UK    
+  *varchar(255) title    
+  text content    
+  varchar link    
+  varchar category    
+  *boolean published    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  uuid thumbnail    FK,UK    
+}
+
+
+"article(Article)"  |o  --  o|  "file(File)":  "thumbnailId"
+
+"article_image(ArticleImage)" {
+  *uuid id    PK    
+  uuid article    FK    
+  uuid file    FK,UK    
+}
+
+
+"article_image(ArticleImage)"  }o  --  o|  "article(Article)":  "articleId"
+"article_image(ArticleImage)"  |o  --  o|  "file(File)":  "fileId"
+
+"about_sections(AboutSection)" {
+  *uuid id    PK    
+  *string(100) slug    UK    
+  *string(255) title    
+  *int sortOrder    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+}
+
+
+
+"about_contents(AboutContent)" {
+  *uuid id    PK    
+  *string(50) layoutType      "ประเภทเลย์เอาท์ของเนื้อหา"  
+  string(255) title    
+  text body    
+  *int sortOrder    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid section    FK    
+  uuid image    FK,UK    
+}
+
+
+"about_contents(AboutContent)"  }o  --  o|  "about_sections(AboutSection)":  "sectionId"
+"about_contents(AboutContent)"  |o  --  o|  "file(File)":  "imageId"
+
+"alumni(Alumni)" {
+  *uuid id    PK    
+  *varchar(255) fullName      "ชื่อ-นามสกุล"  
+  *varchar(255) cohort      "รุ่น"  
+  *varchar(255) workplace      "สถานที่ทำงาน"  
+  *varchar(255) position      "ตำแหน่งงาน"  
+  text quote    
+  *timestamp createdAt    
+  *timestamp updatedAt    
+  timestamp deletedAt    
+  uuid profileImage    FK,UK    
+}
+
+
+"alumni(Alumni)"  |o  --  o|  "file(File)":  "profileImageId"
+
+</textarea
+        >
+      </section>
+
+      <div class="mx-auto p-5" style="width: 100%"></div>
+    </div>
+  </body>
+  <script>
+    mermaid.initialize({ startOnLoad: true, er: { useMaxWidth: false } });
+    setTimeout(() => {
+      svgPanZoom(document.querySelector("#mermaid-pre>svg"), {
+        minZoom: 0.5,
+        maxZoom: 10,
+        fit: true,
+        contain: false,
+        controlIconsEnabled: true,
+        center: true,
+        refreshRate: "auto",
+      });
+    }, 200);
+  </script>
+</html>

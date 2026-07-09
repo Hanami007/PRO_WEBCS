@@ -1,0 +1,65 @@
+### Variables
+@baseurl = http://localhost:3000
+
+@articleId = 620d365f-c3fe-49dd-bc0e-1090ec615bf7
+
+### Create Article
+POST {{baseurl}}/articles
+Content-Type: application/json
+
+{
+    "title": "Good article",
+    "userId": "35e28600-5891-411a-b44f-093d52f38d09",
+    "labels": [
+        {
+            "name": "urgent"
+        },
+    ]
+}
+
+
+### Get articles
+GET {{baseurl}}/articles
+
+### Get article by id
+GET {{baseurl}}/articles/{{articleId}}
+
+### Update article
+PATCH {{baseurl}}/articles/{{articleId}}
+Content-Type: application/json
+
+{
+    "title": "Not some news here",
+    "published": true,
+    "labels": [{
+        "name": "done"
+    }]
+}
+
+
+### Delete Article
+DELETE {{baseurl}}/articles/{{articleId}}
+
+### Add specific labels to an article
+# @name addLabels
+POST  {{baseurl}}/articles/{{articleId}}/labels
+Content-Type: application/json
+
+[
+    {
+        "name": "urgent"
+    },
+    {
+        "name": "bug"
+    }
+]
+
+### Add specific labels to an article
+# @name removeLabels
+DELETE   {{baseurl}}/articles/{{articleId}}/labels
+Content-Type: application/json
+
+[
+    "urgent",
+    "bug"
+]

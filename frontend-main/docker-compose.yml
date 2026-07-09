@@ -1,0 +1,13 @@
+services:
+  frontend:
+    build: .
+    container_name: frontend-app
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - public-network
+
+networks:
+  public-network:
+    external: true

@@ -1,0 +1,3 @@
+# Ignore Traefik Lets Encrypt storage
+letsencrypt/acme.json
+letsencrypt/*.bak

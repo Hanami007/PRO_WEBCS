@@ -1,0 +1,168 @@
+# Update the value below. Only if you use your own secret name
+# For secret: /run/secrets/change_me
+# For environment:
+# - DB_HOST: stackname_postgres
+# - DB_NAME: your_db_name
+# For image: update to your own registry container
+
+services:
+  migration:
+    image: registry.gitlab.com/stingray8210926/backend:latest # CHANGE THIS
+    command: ["pnpm", "migration:run:prod"]
+    networks:
+      - backend
+    secrets:
+      - db_password_v1
+      - db_username_v1
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: webapp_postgres # CHANGE THIS
+      DB_PORT: 5432
+      DB_NAME: csmju # CHANGE THIS
+      DB_PASSWORD_FILE: /run/secrets/db_password_v1
+      DB_USERNAME_FILE: /run/secrets/db_username_v1
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - shepherd.autodeploy=true
+
+  backend:
+    image: registry.gitlab.com/stingray8210926/backend:latest # CHANGE THIS
+    ports:
+      - "4000:4000"
+    networks:
+      - backend
+    configs:
+      - source: backend_config_v1
+        target: /app/.env
+    secrets:
+      - db_username_v1
+      - db_password_v1
+      - jwt_secret_v1
+      - refresh_secret_v1
+    environment:
+      DB_USERNAME_FILE: /run/secrets/db_username_v1
+      DB_PASSWORD_FILE: /run/secrets/db_password_v1
+      AUTH_JWT_SECRET_FILE: /run/secrets/jwt_secret_v1
+      AUTH_REFRESH_SECRET_FILE: /run/secrets/refresh_secret_v1
+    volumes:
+      - ./data/files:/app/files
+    healthcheck:
+      test:
+        ["CMD-SHELL", "node healthcheck.js"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+    deploy:
+      labels:
+        - shepherd.autodeploy=true
+      placement:
+        constraints:
+          - node.role == manager
+
+  frontend:
+    image: registry.gitlab.com/stingray8210926/frontend:latest # CHANGE THIS
+    ports:
+      - "3000:3000"
+    networks:
+      - frontend
+    deploy:
+      labels:
+        - shepherd.autodeploy=true
+
+  postgres:
+    image: postgres:18.3-alpine3.23
+    volumes:
+      - ./data/pg_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    secrets:
+      - db_username_v1
+      - db_password_v1
+    environment:
+      POSTGRES_USER_FILE: /run/secrets/db_username_v1
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password_v1
+      POSTGRES_DB: csmju # CHANGE THIS
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 60s
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+  shepherd:
+    image: containrrr/shepherd:v1.8.1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      TZ: 'Asia/Bangkok'
+      SLEEP_TIME: "5m"
+      IGNORE_SERVICES: "label=shepherd.autodeploy=false"
+      FILTER_SERVICES: "label=shepherd.autodeploy=true"
+      REGISTRY_HOST: "registry.gitlab.com" # CHANGE THIS
+      REGISTRY_USER: "example@gmail.com" # CHANGE THIS
+    secrets:
+      - shepherd_registry_password
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+    networks:
+      - backend
+  
+  pgadmin:
+    image: dpage/pgadmin4:9.13
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'admin@local.com'
+      PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/pgadmin_password
+    networks:
+      - backend
+    secrets:
+      - pgadmin_password
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80/misc/ping"]
+      interval: 10s
+      timeout: 10s
+      start_period: 160s
+      retries: 3
+
+networks:
+  backend:
+  frontend:
+
+secrets:
+  db_username_v1:
+    external: true
+  db_password_v1:
+    external: true
+  jwt_secret_v1:
+    external: true
+  refresh_secret_v1:
+    external: true
+  shepherd_registry_password:
+    external: true
+  pgadmin_password:
+    external: true
+
+configs:
+  backend_config_v1:
+    external: true
