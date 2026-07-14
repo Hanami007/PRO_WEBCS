@@ -17,18 +17,18 @@ const Hero = () => {
           </div>
           <div className="flex-center flex-col max-w-4xl">
             <p className="text-xl text-muted-foreground">
-              At CSMJU, Our undergraduate program equips students with the
-              skills needed to thrive in a digital world.
+              At CSMJU หลักสูตรระดับปริญญาตรีของเรามุ่งเสริมสร้างทักษะให้นักศึกษา
+              พร้อมรับมือกับโลกดิจิทัลในยุคปัจจุบัน
             </p>
           </div>
 
           {/* Button Group */}
           <div className="flex-center space-x-2">
             <Button size={"lg"} asChild>
-              <Link href={paths.admission.getHref()}>Apply Now</Link>
+              <Link href={paths.admission.getHref()}>สมัครเรียน</Link>
             </Button>
             <Button size={"lg"} variant="outline">
-              View Program
+              ดูหลักสูตร
             </Button>
           </div>
         </div>

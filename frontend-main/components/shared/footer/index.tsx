@@ -7,31 +7,31 @@ import { useResourceByKey } from "@/features/resources/api/get-resource-by-key";
 
 const links = [
   {
-    title: "Newsroom",
+    title: "ข่าวสาร",
     href: paths.news.getHref(),
   },
   {
-    title: "Program",
+    title: "หลักสูตร",
     href: paths.programs.getHref(),
   },
   {
-    title: "Projects",
+    title: "โปรเจกต์",
     href: paths.projects.getHref(),
   },
   {
-    title: "Alumnis",
+    title: "ศิษย์เก่า",
     href: paths.department.alumni.getHref(),
   },
   {
-    title: "Facilities",
+    title: "สิ่งอำนวยความสะดวก",
     href: paths.department.facility.getHref(),
   },
   {
-    title: "Contact",
+    title: "ติดต่อเรา",
     href: paths.contact.getHref(),
   },
   {
-    title: "About",
+    title: "เกี่ยวกับเรา",
     href: paths.department.about.getHref(),
   },
 ];
@@ -130,7 +130,7 @@ function Footer() {
         </div>
         <span className="text-muted-foreground block text-center text-sm">
           {" "}
-          © {currentYear} Computer Science MJU
+          © {currentYear} วิทยาการคอมพิวเตอร์ มหาวิทยาลัยแม่โจ้
         </span>
       </div>
     </footer>

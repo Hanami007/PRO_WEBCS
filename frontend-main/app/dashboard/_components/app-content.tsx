@@ -44,7 +44,7 @@ const Breadcrumbs = () => {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href={paths.dashboard.root.getHref()}>Home</Link>
+            <Link href={paths.dashboard.root.getHref()}>หน้าหลัก</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         {breadcrumbs.length > 0 && <BreadcrumbSeparator />}

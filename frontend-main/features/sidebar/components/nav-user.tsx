@@ -80,7 +80,7 @@ export function NavUser({ user }: { user: User }) {
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Settings />
-                <Link href={paths.dashboard.settings.getHref()}>Settings</Link>
+                <Link href={paths.dashboard.settings.getHref()}>ตั้งค่า</Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

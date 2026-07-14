@@ -98,7 +98,7 @@ export default function HeroSection() {
                   as="h2"
                   className="mx-auto mt-8 max-w-4xl text-balance text-5xl max-md:font-semibold md:text-7xl lg:mt-16 xl:text-[5.25rem]"
                 >
-                  Computer Science Faculty of Science, Maejo University
+                  สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาสตร์ มหาวิทยาลัยแม่โจ้
                 </TextEffect>
                 <TextEffect
                   per="line"
@@ -108,8 +108,8 @@ export default function HeroSection() {
                   as="p"
                   className="mx-auto mt-8 max-w-2xl text-balance text-lg"
                 >
-                  At CSMJU, Our undergraduate program equips students with the
-                  skills needed to thrive in a digital world.
+                  ที่ CSMJU หลักสูตรระดับปริญญาตรีของเรามุ่งเสริมสร้างทักษะให้นักศึกษา
+                  พร้อมรับมือกับโลกดิจิทัลในยุคปัจจุบัน
                 </TextEffect>
 
                 <AnimatedGroup
@@ -136,7 +136,7 @@ export default function HeroSection() {
                       className="rounded-xl px-5 text-base"
                     >
                       <Link href={paths.admission.getHref()}>
-                        <span className="text-nowrap">Apply Now</span>
+                        <span className="text-nowrap">สมัครเรียน</span>
                       </Link>
                     </Button>
                   </div>
@@ -148,7 +148,7 @@ export default function HeroSection() {
                     className="h-10.5 rounded-xl px-5"
                   >
                     <Link href={paths.programs.getHref()}>
-                      <span className="text-nowrap">View Program</span>
+                      <span className="text-nowrap">ดูหลักสูตร</span>
                     </Link>
                   </Button>
                 </AnimatedGroup>

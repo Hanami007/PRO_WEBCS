@@ -43,11 +43,11 @@ export const Header = () => {
 
               <div className="hidden lg:flex items-center gap-4">
                 <Button asChild variant="secondary">
-                  <Link href={paths.auth.login.getHref()}>Login</Link>
+                  <Link href={paths.auth.login.getHref()}>เข้าสู่ระบบ</Link>
                 </Button>
                 <Button asChild>
                   <Link href={applyNow}>
-                    <span>Admission</span>
+                    <span>สมัครเรียน</span>
                     <ArrowUpRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>

@@ -30,12 +30,12 @@ const Root = () => {
     bg-[radial-gradient(circle,var(--color-border)_1px,transparent_1px)]
     bg-size-[16px_16px]"
         ></div>
-        <CTA title="Ready to start your journey with us?">
+        <CTA title="พร้อมเริ่มต้นเส้นทางกับเราแล้วหรือยัง?">
           <Button size="lg" asChild>
-            <Link href={paths.admission.getHref()}>Apply Now</Link>
+            <Link href={paths.admission.getHref()}>สมัครเรียน</Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href={paths.programs.getHref()}>View Program</Link>
+            <Link href={paths.programs.getHref()}>ดูหลักสูตร</Link>
           </Button>
         </CTA>
       </div>

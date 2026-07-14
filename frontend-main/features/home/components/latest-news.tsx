@@ -20,14 +20,14 @@ const LatestNews: React.FC = () => {
     <div className="max-w-384 mx-auto py-16 md:py-32">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-3xl lg:text-4xl font-semibold">Latest News</h2>
+          <h2 className="text-3xl lg:text-4xl font-semibold">ข่าวสารล่าสุด</h2>
         </div>
         <Button
           variant="outline"
           className="text-gray-700 border-gray-300 hover:bg-gray-100 dark:text-white"
           asChild
         >
-          <Link href={paths.news.getHref()}>View More</Link>
+          <Link href={paths.news.getHref()}>ดูทั้งหมด</Link>
         </Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

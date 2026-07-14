@@ -21,132 +21,132 @@ import { paths } from "./paths";
 export const navData = {
   navShortcut: [
     {
-      title: "Dashboard",
+      title: "แดชบอร์ด",
       url: paths.dashboard.root.getHref(),
       icon: LayoutDashboard,
     },
     {
-      title: "Go to Website",
+      title: "ไปยังเว็บไซต์",
       url: paths.home.getHref(),
       icon: Globe,
     },
   ],
   navMain: [
     {
-      title: "Home",
+      title: "หน้าหลัก",
       url: paths.dashboard.root.getHref(),
       icon: Home,
       items: [
         {
-          title: "Carousels",
+          title: "สไลด์โชว",
           url: paths.dashboard.carousels.getHref(),
         },
         {
-          title: "Testimonials",
+          title: "คำนิยม",
           url: paths.dashboard.testimonials.getHref(),
         },
         {
-          title: "Announcements",
+          title: "ประกาศ",
           url: paths.dashboard.announcements.getHref(),
         },
       ],
     },
     {
-      title: "Articles",
+      title: "บทความ",
       url: paths.dashboard.articles.getHref(),
       icon: Newspaper,
     },
     {
-      title: "Events",
+      title: "กิจกรรม",
       url: paths.dashboard.events.getHref(),
       icon: CalendarDays,
     },
     {
-      title: "About Us",
+      title: "เกี่ยวกับเรา",
       url: paths.dashboard.abouts.getHref(),
       icon: Target,
     },
     {
-      title: "Contacts",
+      title: "ติดต่อ",
       url: paths.dashboard.contacts.getHref(),
       icon: Contact,
     },
     {
-      title: "Complains",
+      title: "คำร้องเรียน",
       url: paths.dashboard.complains.getHref(),
       icon: MessageSquare,
     },
     {
-      title: "Resources",
+      title: "ทรัพยากร",
       url: paths.dashboard.resources.getHref(),
       icon: Link,
     },
   ],
   navDepartment: [
     {
-      title: "People",
+      title: "บุคคล",
       url: "#",
       icon: Users,
       items: [
         {
-          title: "Personnel",
+          title: "บุคลากร",
           url: paths.dashboard.personnel.getHref(),
         },
         {
-          title: "Alumni",
+          title: "ศิษย์เก่า",
           url: paths.dashboard.alumnis.getHref(),
         },
       ],
     },
     {
-      title: "Curriculum",
+      title: "หลักสูตร",
       url: "/dashboard/programs",
       icon: GraduationCap,
       items: [
         {
-          title: "Programs",
+          title: "โปรแกรม",
           url: paths.dashboard.programs.getHref(),
         },
         {
-          title: "Courses",
+          title: "รายวิชา",
           url: paths.dashboard.courses.getHref(),
         },
       ],
     },
     {
-      title: "Buildings",
+      title: "อาคาร",
       url: paths.dashboard.buildings.getHref(),
       icon: Library,
     },
     {
-      title: "Rooms",
+      title: "ห้อง",
       url: paths.dashboard.rooms.getHref(),
       icon: Library,
     },
     {
-      title: "Projects",
+      title: "โปรเจกต์",
       url: paths.dashboard.research.getHref(),
       icon: Library,
     },
   ],
   navOther: [
     {
-      title: "Settings",
+      title: "ตั้งค่า",
       url: "#",
       icon: Settings,
       items: [
         {
-          title: "Profile",
+          title: "โปรไฟล์",
           url: paths.dashboard.settings.getHref(),
           icon: UserCog,
         },
         {
-          title: "Account",
+          title: "บัญชี",
           url: paths.dashboard.settings.account.getHref(),
           icon: Wrench,
         },
         {
-          title: "Appearance",
+          title: "ธีมการแสดงผล",
           url: paths.dashboard.settings.appearance.getHref(),
           icon: Palette,
         },

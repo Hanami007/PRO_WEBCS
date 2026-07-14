@@ -22,7 +22,7 @@ export const LogoutButton: React.FC<{ onSuccess?: () => void }> = ({
       disabled={isPending}
       className="logout-btn"
     >
-      {isPending ? "Logging out..." : "Logout"}
+      {isPending ? "กำลังออกจากระบบ..." : "ออกจากระบบ"}
     </button>
   );
 };

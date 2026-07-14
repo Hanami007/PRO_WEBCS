@@ -41,9 +41,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavShortcut items={navData.navShortcut} />
-        <NavMain items={navData.navMain} label="Website" />
-        <NavMain items={navData.navDepartment} label="Department" />
-        <NavMain items={navData.navOther} label="Other" />
+        <NavMain items={navData.navMain} label="เว็บไซต์" />
+        <NavMain items={navData.navDepartment} label="ภาควิชา" />
+        <NavMain items={navData.navOther} label="อื่น ๆ" />
       </SidebarContent>
       <SidebarFooter>
         {user.data && <NavUser user={user.data} />}

@@ -29,28 +29,28 @@ type MenuItem = {
 
 const menuItems: MenuItem[] = [
   {
-    title: "Home",
+    title: "หน้าหลัก",
     submenu: [
-      { title: "Landing Page", href: paths.home.getHref() },
-      { title: "News", href: paths.news.getHref() },
+      { title: "หน้าแรก", href: paths.home.getHref() },
+      { title: "ข่าวสาร", href: paths.news.getHref() },
     ],
   },
   {
-    title: "Department",
+    title: "ภาควิชา",
     submenu: [
-      { title: "About Us", href: paths.department.about.getHref() },
+      { title: "เกี่ยวกับเรา", href: paths.department.about.getHref() },
       {
-        title: "Classroom and Building",
+        title: "ห้องเรียนและอาคาร",
         href: paths.department.facility.getHref(),
       },
-      { title: "Personnel", href: paths.department.personnels.getHref() },
-      { title: "Alumni", href: paths.department.alumni.getHref() },
+      { title: "บุคลากร", href: paths.department.personnels.getHref() },
+      { title: "ศิษย์เก่า", href: paths.department.alumni.getHref() },
     ],
   },
-  { title: "Program", href: paths.programs.getHref() },
-  { title: "Project", href: paths.projects.getHref() },
-  { title: "Contact", href: paths.contact.getHref() },
-  { title: "Admission", href: paths.admission.getHref() },
+  { title: "หลักสูตร", href: paths.programs.getHref() },
+  { title: "โปรเจกต์", href: paths.projects.getHref() },
+  { title: "ติดต่อเรา", href: paths.contact.getHref() },
+  { title: "การรับสมัคร", href: paths.admission.getHref() },
 ];
 
 const MenuItemComponent: React.FC<{
@@ -165,7 +165,7 @@ export default function HamburgerMenu() {
           <div className="flex flex-col">
             <p className="font-bold text-lg">CSMJU</p>
             <p className="text-xs text-muted-foreground">
-              Computer Science Maejo University
+              วิทยาการคอมพิวเตอร์ มหาวิทยาลัยแม่โจ้
             </p>
           </div>
           <ModeToggle />

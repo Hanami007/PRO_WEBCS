@@ -18,7 +18,7 @@ const DashboardPage = async () => {
   return (
     <HydrationBoundary state={dehydratedState}>
       <DashboardContentLayout>
-        <p className="text-2xl font-medium">Hi! Welcome to Dashboard</p>
+        <p className="text-2xl font-medium">สวัสดี! ยินดีต้อนรับสู่แดชบอร์ด</p>
       </DashboardContentLayout>
     </HydrationBoundary>
   );
