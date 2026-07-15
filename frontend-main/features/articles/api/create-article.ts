@@ -7,7 +7,17 @@ import { Article } from "../types/api";
 
 export const createArticleInputSchema = z.object({
   title: z.string().min(1, "Required").max(255),
-  description: z.string().optional(),
+  content: z.string().optional().nullable(),
+  published: z.boolean().optional(),
+  link: z.string().optional(),
+  category: z.string().optional(),
+  thumbnail: z
+    .object({
+      id: z.string(),
+      path: z.string().optional(),
+    })
+    .nullable()
+    .optional(),
 });
 
 export type CreateArticleInput = z.infer<typeof createArticleInputSchema>;

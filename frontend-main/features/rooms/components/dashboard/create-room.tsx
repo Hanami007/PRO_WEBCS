@@ -25,7 +25,8 @@ import { SelectItem } from "@/components/ui/select";
 import { useBuildings } from "../../../buildings/api/get-buildings";
 import { useRoomTypes } from "../../api/get-room-types";
 import { usePersonnels } from "@/features/personnels/api/get-personnels";
-import { FormInput, FormSelect, FormNumber } from "@/components/form";
+import { FormInput, FormSelect, FormNumber, FormFile, FormImagePreview } from "@/components/form";
+import useFilePreview from "@/hooks/use-file-preview";
 
 export const CreateRoom = () => {
   const [open, setOpen] = useState(false);
@@ -58,11 +59,16 @@ export const CreateRoom = () => {
       buildingId: "",
       typeId: "",
       personnelId: null,
+      file: null,
     },
   });
 
+  const file = form.watch("file");
+  const [filePreview] = useFilePreview(file ?? null);
+
   const onSubmit = (values: CreateRoomInput) => {
-    createRoomMutation.mutate({ data: values });
+    const { file, ...data } = values;
+    createRoomMutation.mutate({ data, file });
   };
 
   return (
@@ -135,6 +141,9 @@ export const CreateRoom = () => {
               ))}
             </FormSelect>
           </div>
+
+          <FormImagePreview file={filePreview} />
+          <FormFile control={form.control} name="file" label="รูปห้อง" />
 
           <DialogFooter>
             <Button type="submit" disabled={createRoomMutation.isPending}>

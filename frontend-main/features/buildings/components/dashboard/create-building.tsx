@@ -21,9 +21,10 @@ import {
   useCreateBuilding,
   CreateBuildingInput,
 } from "../../api/create-building";
-import { FormInput } from "@/components/form";
+import { FormInput, FormFile, FormImagePreview } from "@/components/form";
 import { useBuildings } from "../../api/get-buildings";
 import { FieldGroup, FieldSet } from "@/components/ui/field";
+import useFilePreview from "@/hooks/use-file-preview";
 
 export const CreateBuilding = () => {
   const [open, setOpen] = useState(false);
@@ -48,8 +49,12 @@ export const CreateBuilding = () => {
     resolver: zodResolver(createBuildingInputSchema),
     defaultValues: {
       name: "",
+      file: null,
     },
   });
+
+  const file = form.watch("file");
+  const [filePreview] = useFilePreview(file ?? null);
 
   const onSubmit = (values: CreateBuildingInput) => {
     const isDuplicate = existingBuildings.some(
@@ -65,7 +70,8 @@ export const CreateBuilding = () => {
       return;
     }
 
-    createBuildingMutation.mutate({ data: values });
+    const { file, ...data } = values;
+    createBuildingMutation.mutate({ data, file });
   };
 
   return (
@@ -86,8 +92,10 @@ export const CreateBuilding = () => {
               <FormInput
                 control={form.control}
                 name="name"
-                label="Building Name"
+                label="ชื่ออาคาร"
               />
+              <FormImagePreview file={filePreview} />
+              <FormFile control={form.control} name="file" label="รูปอาคาร" />
             </FieldSet>
           </FieldGroup>
 

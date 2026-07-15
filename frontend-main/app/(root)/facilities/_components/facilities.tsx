@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import FacilitiesSections from "@/features/buildings/components/facilities-view";
 import { ContentLayout } from "@/components/layouts/content-layout";
 import { RoomList } from "@/features/rooms/components/room-list";
 
 const Facilities = () => {
+  const [selectedBuildingId, setSelectedBuildingId] = useState<string>("");
+
   return (
     <ContentLayout
       title="อาคารและห้องเรียน"
@@ -13,8 +15,8 @@ const Facilities = () => {
 โดยมีห้องสำนักงานตั้งอยู่ที่ ชั้น 6 อาหารแม่โจ้ 60 ปี"
     >
       <div className="container mx-auto">
-        <FacilitiesSections />
-        <RoomList />
+        <FacilitiesSections selectedBuildingId={selectedBuildingId} onBuildingChange={setSelectedBuildingId} />
+        {selectedBuildingId && <RoomList buildingId={selectedBuildingId} />}
       </div>
     </ContentLayout>
   );

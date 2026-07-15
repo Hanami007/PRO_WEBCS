@@ -4,6 +4,12 @@ import { Personnel } from "@/features/personnels/types/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { getPersonnelsQueryOptions } from "./get-personnels";
+import { FileEntity } from "@/types/api";
+import {
+  PRIVATE_ACCEPTED_FILE_TYPES,
+  PRIVATE_MAX_FILE_SIZE,
+  uploadFile,
+} from "@/features/files/api/upload-file";
 
 export const createPersonnelInputSchema = z.object({
   citizenId: z.string().optional().nullable(),
@@ -18,6 +24,7 @@ export const createPersonnelInputSchema = z.object({
   personnelType: z.string().min(1, "Required"),
   academicType: z.string().optional().nullable(),
   workStatusId: z.string().min(1, "Required"),
+  file: z.file().mime(PRIVATE_ACCEPTED_FILE_TYPES).max(PRIVATE_MAX_FILE_SIZE).optional().nullable(),
 });
 
 export type CreatePersonnelInput = z.infer<typeof createPersonnelInputSchema>;
@@ -25,7 +32,7 @@ export type CreatePersonnelInput = z.infer<typeof createPersonnelInputSchema>;
 export const createPersonnel = ({
   data,
 }: {
-  data: CreatePersonnelInput;
+  data: Omit<CreatePersonnelInput, "file">;
 }): Promise<Personnel> => {
   return api.post("/personnels", data);
 };
@@ -34,18 +41,34 @@ type UseCreatePersonnelOptions = {
   mutationConfig?: MutationConfig<typeof createPersonnel>;
 };
 
+type CreatePersonnelArgs = {
+  data: Omit<CreatePersonnelInput, "file">;
+  file?: File | null;
+};
+
 export const useCreatePersonnel = ({ mutationConfig }: UseCreatePersonnelOptions = {}) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
+    ...restConfig,
     onSuccess: (...args) => {
       queryClient.invalidateQueries({
         queryKey: getPersonnelsQueryOptions().queryKey,
       });
       onSuccess?.(...args);
     },
-    ...restConfig,
-    mutationFn: createPersonnel,
+    mutationFn: async ({ data, file }: CreatePersonnelArgs): Promise<Personnel> => {
+      const personnel = await createPersonnel({ data });
+
+      if (file) {
+        const imagePayload = await uploadFile({ file, prefix: "personnels" });
+        return api.patch<Personnel>(`/personnels/${personnel.id}`, {
+          profileImage: imagePayload,
+        });
+      }
+
+      return personnel;
+    },
   });
 };

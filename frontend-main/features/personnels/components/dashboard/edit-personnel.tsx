@@ -126,11 +126,14 @@ const UpdatePersonnelInfoForm = ({ personnel }: { personnel: Personnel }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormInput
+            <FormSelect
               control={form.control}
               name="personnelType"
               label="ประเภทของบุคลากร"
-            />
+            >
+              <SelectItem value="อาจารย์">คณาจารย์</SelectItem>
+              <SelectItem value="เจ้าหน้าที่">เจ้าหน้าที่</SelectItem>
+            </FormSelect>
             <FormInput
               control={form.control}
               name="academicType"

@@ -20,8 +20,9 @@ async function bootstrap() {
         : ['log', 'error', 'warn', 'debug', 'verbose'],
   });
   const configService = app.get(ConfigService<AllConfigType>);
+  const frontendDomain = configService.getOrThrow('app.frontendDomain', { infer: true });
   const corsOptions: CorsOptions = {
-    origin: [configService.getOrThrow('app.frontendDomain', { infer: true })],
+    origin: frontendDomain ? frontendDomain.split(',').map((domain) => domain.trim()) : [],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
     credentials: true,

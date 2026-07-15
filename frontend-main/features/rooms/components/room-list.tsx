@@ -8,7 +8,7 @@ import { Layers, Monitor, Users } from "lucide-react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
-export const RoomList = () => {
+export const RoomList = ({ buildingId }: { buildingId: string }) => {
   const roomQuery = useRooms({ limit: 100 });
 
   if (roomQuery.isLoading) return <Spinner />;
@@ -18,11 +18,11 @@ export const RoomList = () => {
   if (!rooms) return null;
 
   const labs = rooms.filter(
-    (room) => room.type?.name === "ห้องปฏิบัติการ",
+    (room) => room.type?.name === "ห้องปฏิบัติการ" && room.building?.id === buildingId,
   );
 
   const lectures = rooms.filter(
-    (room) => room.type?.name === "ห้องบรรยาย",
+    (room) => room.type?.name === "ห้องบรรยาย" && room.building?.id === buildingId,
   );
 
   return (
