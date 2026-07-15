@@ -12,8 +12,11 @@ import { ArrowUpRight } from "lucide-react";
 
 import { AnnouncementBannerList } from "@/features/announcements/components/announcement-banner-list";
 import { useResourceByKey } from "@/features/resources/api/get-resource-by-key";
+import { useUser, useLogout } from "@/lib/auth";
 
 export const Header = () => {
+  const { data: user } = useUser();
+  const logout = useLogout({});
   const admissionQuery = useResourceByKey({ resourceKey: "admission_link" });
   const applyNow =
     admissionQuery.data?.value || "https://admissions.mju.ac.th/";
@@ -42,10 +45,26 @@ export const Header = () => {
               </div>
 
               <div className="hidden lg:flex items-center gap-4">
-                <Button asChild variant="secondary">
-                  <Link href={paths.auth.login.getHref()}>เข้าสู่ระบบ</Link>
-                </Button>
-                <Button asChild>
+                {user ? (
+                  <>
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                      สวัสดี, {user.name}
+                    </span>
+                    {user.role?.name === "admin" && (
+                      <Button asChild variant="outline" className="cursor-pointer">
+                        <Link href={paths.dashboard.root.getHref()}>จัดการระบบ</Link>
+                      </Button>
+                    )}
+                    <Button onClick={() => logout.mutate()} variant="destructive" className="cursor-pointer">
+                      ออกจากระบบ
+                    </Button>
+                  </>
+                ) : (
+                  <Button asChild variant="secondary" className="cursor-pointer">
+                    <Link href={paths.auth.login.getHref()}>เข้าสู่ระบบ</Link>
+                  </Button>
+                )}
+                <Button asChild className="cursor-pointer">
                   <Link href={applyNow}>
                     <span>สมัครเรียน</span>
                     <ArrowUpRight className="ml-2 h-4 w-4" />

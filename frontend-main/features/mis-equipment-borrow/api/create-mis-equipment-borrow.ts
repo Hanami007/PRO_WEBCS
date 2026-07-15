@@ -9,7 +9,7 @@ export const createMisEquipmentBorrowInputSchema = z.object({
   equipmentName: z.string().min(2, "กรุณากรอกชื่ออุปกรณ์"),
   quantity: z.number().min(1, "จำนวนต้องมากกว่า 0"),
   borrowDate: z.string().min(1, "กรุณาเลือกวันที่ยืม"),
-  returnDate: z.string().min(1, "กรุณาเลือกวันที่กำหนดคืน"),
+  returnDate: z.string().optional(),
   note: z.string().optional(),
 });
 

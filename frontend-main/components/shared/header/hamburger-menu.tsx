@@ -20,6 +20,7 @@ import Link from "next/link";
 import { paths } from "@/config/paths";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "./mode-toggle";
+import { useUser, useLogout } from "@/lib/auth";
 
 type MenuItem = {
   title: string;
@@ -123,6 +124,8 @@ const MenuItemComponent: React.FC<{
 
 export default function HamburgerMenu() {
   const [open, setOpen] = React.useState(false);
+  const { data: user } = useUser();
+  const logout = useLogout({});
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -167,6 +170,38 @@ export default function HamburgerMenu() {
               />
             ))}
           </nav>
+
+          {/* Login/Logout section for mobile */}
+          <div className="p-6 border-t border-muted/20 space-y-4">
+            {user ? (
+              <div className="space-y-3">
+                <p className="text-sm font-semibold text-muted-foreground">
+                  สวัสดี, <span className="text-slate-800 dark:text-slate-200">{user.name}</span>
+                </p>
+                <div className="flex flex-col gap-2">
+                  {user.role?.name === "admin" && (
+                    <Button asChild variant="outline" className="w-full justify-center" onClick={() => setOpen(false)}>
+                      <Link href={paths.dashboard.root.getHref()}>จัดการระบบ</Link>
+                    </Button>
+                  )}
+                  <Button
+                    onClick={() => {
+                      logout.mutate();
+                      setOpen(false);
+                    }}
+                    variant="destructive"
+                    className="w-full"
+                  >
+                    ออกจากระบบ
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <Button asChild variant="secondary" className="w-full" onClick={() => setOpen(false)}>
+                <Link href={paths.auth.login.getHref()}>เข้าสู่ระบบ</Link>
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className="p-8 border-t bg-muted/10 mt-auto flex items-center justify-between">
