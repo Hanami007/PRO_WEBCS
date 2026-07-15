@@ -4,19 +4,17 @@ import { useBuildings } from "@/features/buildings/api/get-buildings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
+import React from "react";
 
-const FacilitiesSections = () => {
+type FacilitiesSectionsProps = {
+  selectedBuildingId: string;
+  onBuildingChange: (id: string) => void;
+};
+
+const FacilitiesSections = ({ selectedBuildingId, onBuildingChange }: FacilitiesSectionsProps) => {
   const { data: buildingsData, isLoading: isBuildingsLoading } = useBuildings({
     limit: 100,
   });
-
-  if (isBuildingsLoading) {
-    return (
-      <div className="flex h-48 w-full items-center justify-center">
-        <Spinner />
-      </div>
-    );
-  }
 
   const buildings = (buildingsData?.data || []).sort((a, b) => {
     const isAMaejo =
@@ -28,6 +26,20 @@ const FacilitiesSections = () => {
     if (!isAMaejo && isBMaejo) return 1;
     return 0;
   });
+
+  React.useEffect(() => {
+    if (buildings.length > 0 && !selectedBuildingId) {
+      onBuildingChange(buildings[0].id);
+    }
+  }, [buildings, selectedBuildingId, onBuildingChange]);
+
+  if (isBuildingsLoading) {
+    return (
+      <div className="flex h-48 w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   const getImageUrl = (item: { image?: { url: string } }) => {
     const imagePath = item.image?.url;
@@ -47,7 +59,7 @@ const FacilitiesSections = () => {
   }
 
   return (
-    <Tabs defaultValue={buildings[0]?.id} className="w-full">
+    <Tabs value={selectedBuildingId} onValueChange={onBuildingChange} className="w-full">
       <div className="flex justify-center mb-8 overflow-x-auto pb-2">
         <TabsList>
           {buildings.map((building) => (

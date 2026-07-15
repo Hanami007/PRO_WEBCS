@@ -4,6 +4,11 @@ import { Room } from "@/features/rooms/types/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { getRoomsQueryOptions } from "./get-rooms";
+import { updateRoomImage } from "./update-room-image";
+import {
+  PRIVATE_ACCEPTED_FILE_TYPES,
+  PRIVATE_MAX_FILE_SIZE,
+} from "@/features/files/api/upload-file";
 
 export const createRoomInputSchema = z.object({
   code: z.string().min(1, "Required"),
@@ -14,6 +19,7 @@ export const createRoomInputSchema = z.object({
   buildingId: z.string().min(1, "Required"),
   typeId: z.string().min(1, "Required"),
   personnelId: z.string().optional().nullable(),
+  file: z.file().mime(PRIVATE_ACCEPTED_FILE_TYPES).max(PRIVATE_MAX_FILE_SIZE).optional().nullable(),
 });
 
 export type CreateRoomInput = z.infer<typeof createRoomInputSchema>;
@@ -21,7 +27,7 @@ export type CreateRoomInput = z.infer<typeof createRoomInputSchema>;
 export const createRoom = ({
   data,
 }: {
-  data: CreateRoomInput;
+  data: Omit<CreateRoomInput, "file">;
 }): Promise<Room> => {
   const payload = {
     code: data.code,
@@ -41,6 +47,11 @@ type UseCreateRoomOptions = {
   mutationConfig?: MutationConfig<typeof createRoom>;
 };
 
+type CreateRoomArgs = {
+  data: Omit<CreateRoomInput, "file">;
+  file?: File | null;
+};
+
 export const useCreateRoom = ({
   mutationConfig,
 }: UseCreateRoomOptions = {}) => {
@@ -48,13 +59,21 @@ export const useCreateRoom = ({
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
+    ...restConfig,
     onSuccess: (...args) => {
       queryClient.invalidateQueries({
         queryKey: getRoomsQueryOptions().queryKey,
       });
       onSuccess?.(...args);
     },
-    ...restConfig,
-    mutationFn: createRoom,
+    mutationFn: async ({ data, file }: CreateRoomArgs): Promise<Room> => {
+      const room = await createRoom({ data });
+
+      if (file) {
+        return updateRoomImage({ id: room.id, file });
+      }
+
+      return room;
+    },
   });
 };

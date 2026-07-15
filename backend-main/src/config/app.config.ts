@@ -1,5 +1,5 @@
 import { registerAs } from '@nestjs/config';
-import { IsEnum, IsInt, IsOptional, IsUrl, Max, Min } from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString, IsUrl, Max, Min } from 'class-validator';
 import validateConfig from 'src/utils/validate-config';
 import { AppConfig } from './app-config.type';
 
@@ -20,7 +20,7 @@ class EnvironmentVariablesValidator {
   @IsOptional()
   APP_PORT: number;
 
-  @IsUrl({ require_tld: false })
+  @IsString()
   @IsOptional()
   FRONTEND_DOMAIN: string;
 

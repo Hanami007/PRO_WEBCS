@@ -31,7 +31,28 @@ export class ArticlesService {
   ) {}
 
   async create(createArticleDto: CreateArticleDto): Promise<Article> {
-    const article = this.articlesRepository.create(createArticleDto);
+    let thumbnail: File | null | undefined = undefined;
+
+    if (createArticleDto.thumbnail?.id) {
+      const fileObject = await this.filesService.findById(
+        createArticleDto.thumbnail.id,
+      );
+
+      if (!fileObject) {
+        throw new UnprocessableEntityException({
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            thumbnail: 'imageNotExists',
+          },
+        });
+      }
+      thumbnail = fileObject;
+    }
+
+    const article = this.articlesRepository.create({
+      ...createArticleDto,
+      thumbnail,
+    });
     return await this.articlesRepository.save(article);
   }
 

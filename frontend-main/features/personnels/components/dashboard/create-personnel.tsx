@@ -22,9 +22,10 @@ import {
   CreatePersonnelInput,
 } from "../../api/create-personnel";
 import { usePersonnelStatuses } from "../../api/get-personnel-statuses";
-import { FormInput, FormSelect } from "@/components/form";
+import { FormInput, FormSelect, FormFile, FormImagePreview } from "@/components/form";
 import { SelectItem } from "@/components/ui/select";
 import { WorkStatus } from "../../types/api";
+import useFilePreview from "@/hooks/use-file-preview";
 
 export const CreatePersonnel = () => {
   const [open, setOpen] = useState(false);
@@ -55,11 +56,16 @@ export const CreatePersonnel = () => {
       personnelType: "",
       academicType: "",
       workStatusId: "",
+      file: null,
     },
   });
 
+  const file = form.watch("file");
+  const [filePreview] = useFilePreview(file ?? null);
+
   const onSubmit = (values: CreatePersonnelInput) => {
-    createPersonnelMutation.mutate({ data: values });
+    const { file, ...data } = values;
+    createPersonnelMutation.mutate({ data, file });
   };
 
   return (
@@ -117,11 +123,14 @@ export const CreatePersonnel = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormInput
+            <FormSelect
               control={form.control}
               name="personnelType"
               label="ประเภทของบุคลากร"
-            />
+            >
+              <SelectItem value="อาจารย์">คณาจารย์</SelectItem>
+              <SelectItem value="เจ้าหน้าที่">เจ้าหน้าที่</SelectItem>
+            </FormSelect>
             <FormInput
               control={form.control}
               name="academicType"
@@ -155,6 +164,9 @@ export const CreatePersonnel = () => {
             name="phoneNumber"
             label="เบอร์โทรศัพท์"
           />
+
+          <FormImagePreview file={filePreview} />
+          <FormFile control={form.control} name="file" label="รูปโปรไฟล์" />
 
           <DialogFooter>
             <Button type="submit" disabled={createPersonnelMutation.isPending}>
