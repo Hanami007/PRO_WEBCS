@@ -39,8 +39,16 @@ export const useLogout = ({ onSuccess }: { onSuccess?: () => void }) => {
 };
 
 export const loginInputSchema = z.object({
-  email: z.email("Invalid email"),
-  password: z.string().min(5, "Password is too short"),
+  email: z.string().email("อีเมลไม่ถูกต้อง").refine(
+    (val) =>
+      val === "admin@example.com" ||
+      val.endsWith("@mju.ac.th") ||
+      val.endsWith("@g.mju.ac.th"),
+    {
+      message: "กรุณาใช้อีเมลมหาวิทยาลัย (@mju.ac.th หรือ @g.mju.ac.th)",
+    }
+  ),
+  password: z.string().min(5, "รหัสผ่านต้องมีอย่างน้อย 5 ตัวอักษร"),
 });
 
 export type LoginInput = z.infer<typeof loginInputSchema>;

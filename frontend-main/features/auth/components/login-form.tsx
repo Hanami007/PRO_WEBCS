@@ -41,10 +41,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
       <LogoImage className="h-32 w-32 mx-auto" />
       <Card>
         <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
+          <CardTitle>เข้าสู่ระบบ</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={form.handleSubmit(onSubmit)}>

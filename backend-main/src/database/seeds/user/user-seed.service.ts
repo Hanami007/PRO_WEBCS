@@ -27,9 +27,29 @@ export class UserSeedService {
         name: 'Admin',
         email: adminEmail,
         password: hashedPassword,
-
         role: {
           id: RoleEnum.admin,
+        } as Role,
+      });
+
+      await this.repository.save(newUser);
+    }
+
+    // Add Student User
+    const studentEmail = '6604101335@mju.ac.th';
+    const studentUser = await this.repository.findOne({
+      where: { email: studentEmail },
+    });
+
+    if (!studentUser) {
+      const hashedPassword =
+        await this.passwordService.hash('MJU@02082004');
+      const newUser = this.repository.create({
+        name: 'นักศึกษา (6604101335)',
+        email: studentEmail,
+        password: hashedPassword,
+        role: {
+          id: RoleEnum.user,
         } as Role,
       });
 

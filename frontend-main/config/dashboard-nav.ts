@@ -1,6 +1,7 @@
 import {
   CalendarDays,
   Contact,
+  Database,
   Globe,
   GraduationCap,
   Home,
@@ -80,6 +81,25 @@ export const navData = {
       title: "ทรัพยากร",
       url: paths.dashboard.resources.getHref(),
       icon: Link,
+    },
+    {
+      title: "MIS",
+      url: "#",
+      icon: Database,
+      items: [
+        {
+          title: "แจ้งตกค้างรายวิชา",
+          url: paths.dashboard.mis.coursePending.getHref(),
+        },
+        {
+          title: "ยืม-คืนครุภัณฑ์",
+          url: paths.dashboard.mis.equipmentBorrow.getHref(),
+        },
+        {
+          title: "แจ้งของพัง",
+          url: paths.dashboard.mis.repairRequest.getHref(),
+        },
+      ],
     },
   ],
   navDepartment: [

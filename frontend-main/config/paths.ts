@@ -58,6 +58,18 @@ export const paths = {
     getHref: () => "https://admissions.mju.ac.th/",
   },
 
+  mis: {
+    coursePending: {
+      getHref: () => "/mis/course-pending",
+    },
+    equipmentBorrow: {
+      getHref: () => "/mis/equipment-borrow",
+    },
+    repairRequest: {
+      getHref: () => "/mis/repair-request",
+    },
+  },
+
   dashboard: {
     root: {
       getHref: () => "/dashboard",
@@ -178,6 +190,17 @@ export const paths = {
     },
     announcement: {
       getHref: (id: string) => `/dashboard/announcements/${id}`,
+    },
+    mis: {
+      coursePending: {
+        getHref: () => "/dashboard/mis/course-pending",
+      },
+      equipmentBorrow: {
+        getHref: () => "/dashboard/mis/equipment-borrow",
+      },
+      repairRequest: {
+        getHref: () => "/dashboard/mis/repair-request",
+      },
     },
   },
 

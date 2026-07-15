@@ -113,9 +113,37 @@ export class ArticlesService {
   }
 
   async remove(id: string) {
+    const article = await this.articlesRepository.findOne({
+      where: { id },
+      relations: ['thumbnail', 'contentImages', 'contentImages.file'],
+    });
+
+    if (!article) {
+      return { success: true };
+    }
+
+    // Delete content images (and their files) first
+    if (article.contentImages && article.contentImages.length > 0) {
+      for (const image of article.contentImages) {
+        await this.articleImageService.remove(image.id);
+      }
+    }
+
+    // Detach thumbnail before deleting the article
+    if (article.thumbnail) {
+      const thumbnailId = article.thumbnail.id;
+      await this.articlesRepository.update(id, { thumbnail: null });
+      try {
+        await this.filesService.remove(thumbnailId);
+      } catch (error) {
+        console.error(`Failed to delete thumbnail file ${thumbnailId}:`, error);
+      }
+    }
+
     await this.articlesRepository.delete(id);
     return { success: true };
   }
+
 
   async createImage(
     id: string,

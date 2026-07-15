@@ -41,6 +41,9 @@ import { ComplainsModule } from './complains/complains.module';
 import { HealthModule } from './health/health.module';
 import { ResourcesModule } from './resources/resources.module';
 import { AnnouncementsModule } from './announcements/announcements.module';
+import { MisCoursePendingModule } from './mis-course-pending/mis-course-pending.module';
+import { MisEquipmentBorrowModule } from './mis-equipment-borrow/mis-equipment-borrow.module';
+import { MisRepairRequestModule } from './mis-repair-request/mis-repair-request.module';
 import { JwtAuthGuard } from './auth/guards/jwtauth.guard';
 
 const TypeOrmDatabaseModule = TypeOrmModule.forRootAsync({
@@ -90,6 +93,9 @@ const TypeOrmDatabaseModule = TypeOrmModule.forRootAsync({
     HealthModule,
     ResourcesModule,
     AnnouncementsModule,
+    MisCoursePendingModule,
+    MisEquipmentBorrowModule,
+    MisRepairRequestModule,
   ],
 
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],

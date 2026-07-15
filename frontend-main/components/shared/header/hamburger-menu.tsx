@@ -51,6 +51,14 @@ const menuItems: MenuItem[] = [
   { title: "โปรเจกต์", href: paths.projects.getHref() },
   { title: "ติดต่อเรา", href: paths.contact.getHref() },
   { title: "การรับสมัคร", href: paths.admission.getHref() },
+  {
+    title: "MIS",
+    submenu: [
+      { title: "ระบบแจ้งตกค้างรายวิชา", href: paths.mis.coursePending.getHref() },
+      { title: "ระบบยืม-คืนครุภัณฑ์", href: paths.mis.equipmentBorrow.getHref() },
+      { title: "ระบบแจ้งของพัง", href: paths.mis.repairRequest.getHref() },
+    ],
+  },
 ];
 
 const MenuItemComponent: React.FC<{

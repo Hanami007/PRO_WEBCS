@@ -25,7 +25,14 @@ export const updateRoom = ({
   data: UpdateRoomInput;
   roomId: string;
 }): Promise<Room> => {
-  return api.patch(`/rooms/${roomId}`, data);
+  const { buildingId, typeId, personnelId, ...rest } = data;
+  const payload = {
+    ...rest,
+    building: { id: buildingId },
+    type: { id: typeId },
+    ...(personnelId ? { personnel: { id: personnelId } } : { personnel: null }),
+  };
+  return api.patch(`/rooms/${roomId}`, payload);
 };
 
 type UseUpdateRoomOptions = {

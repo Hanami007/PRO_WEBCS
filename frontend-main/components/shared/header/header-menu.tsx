@@ -36,6 +36,12 @@ const departments: { title: string; href: string; description: string }[] = [
   },
 ];
 
+const misMenuItems: { title: string; href: string }[] = [
+  { title: "ระบบแจ้งตกค้างรายวิชา", href: paths.mis.coursePending.getHref() },
+  { title: "ระบบยืม-คืนครุภัณฑ์", href: paths.mis.equipmentBorrow.getHref() },
+  { title: "ระบบแจ้งของพัง", href: paths.mis.repairRequest.getHref() },
+];
+
 const HeaderMenu = () => {
   return (
     <NavigationMenu viewport={false}>
@@ -73,6 +79,16 @@ const HeaderMenu = () => {
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href={paths.contact.getHref()}>ติดต่อเรา</Link>
           </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>MIS</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[220px] gap-2">
+              {misMenuItems.map((item) => (
+                <ListItem key={item.title} title={item.title} href={item.href} />
+              ))}
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

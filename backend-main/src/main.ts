@@ -20,6 +20,8 @@ async function bootstrap() {
         : ['log', 'error', 'warn', 'debug', 'verbose'],
   });
   const configService = app.get(ConfigService<AllConfigType>);
+  app.use(cookieParser());
+
   const corsOptions: CorsOptions = {
     origin: [configService.getOrThrow('app.frontendDomain', { infer: true })],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -93,8 +95,6 @@ async function bootstrap() {
       prefix: `/${configService.getOrThrow('file.path', { infer: true })}`,
     },
   );
-
-  app.use(cookieParser());
 
   await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }
