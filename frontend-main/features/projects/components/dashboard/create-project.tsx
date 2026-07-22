@@ -24,7 +24,7 @@ import {
 import { SelectItem } from "@/components/ui/select";
 import { usePersonnels } from "@/features/personnels/api/get-personnels";
 import { Button } from "@/components/ui/button";
-import { FormInput, FormSelect, FormTextarea } from "@/components/form";
+import { FormInput, FormSelect, FormTextarea, FormFile } from "@/components/form";
 import { FieldGroup, FieldLabel } from "@/components/ui/field";
 import { useUser } from "@/lib/auth";
 import { canCreateProject } from "@/lib/authorization";
@@ -37,7 +37,7 @@ export const CreateProject = () => {
   const createProjectMutation = useCreateProject({
     mutationConfig: {
       onSuccess: () => {
-        toast.success("Project created successfully.");
+        toast.success("เพิ่มข้อมูลโครงงานเรียบร้อยแล้ว");
         setOpen(false);
         form.reset();
       },
@@ -55,6 +55,7 @@ export const CreateProject = () => {
       chairmanId: "",
       director1Id: "",
       director2Id: "",
+      file: undefined,
     },
   });
 
@@ -70,21 +71,25 @@ export const CreateProject = () => {
   }
 
   const onSubmit = (values: CreateProjectInput) => {
-    createProjectMutation.mutate({ data: values });
+    const { file, ...restValues } = values;
+    createProjectMutation.mutate({
+      data: restValues,
+      file: file instanceof File ? file : null,
+    });
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" /> Add Project
+        <Button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-4 h-10 flex items-center gap-1.5 shadow-sm cursor-pointer">
+          <Plus className="h-4 w-4" /> เพิ่ม
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] flex flex-col p-0">
         <DialogHeader className="px-6 pt-6">
-          <DialogTitle>Add New Research Project</DialogTitle>
+          <DialogTitle>เพิ่มข้อมูลโครงงานนักศึกษาใหม่</DialogTitle>
           <DialogDescription>
-            Enter the research details and add team members.
+            กรอกรายละเอียดโครงงาน รหัสโครงงาน ผู้จัดทำ และอัปโหลดไฟล์เอกสาร (PDF)
           </DialogDescription>
         </DialogHeader>
         <div className="flex-1 overflow-y-auto px-6">
@@ -95,23 +100,23 @@ export const CreateProject = () => {
           >
             <FieldGroup>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormInput control={form.control} name="code" label="Code" />
+                <FormInput control={form.control} name="code" label="รหัสโครงงาน (เช่น P08)" />
 
-                <FormInput control={form.control} name="year" label="Year" />
+                <FormInput control={form.control} name="year" label="ปีการศึกษา (พ.ศ. เช่น 2564)" />
               </div>
 
-              <FormInput control={form.control} name="name" label="Title" />
+              <FormInput control={form.control} name="name" label="ชื่อโครงงาน *" />
 
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <FieldLabel>Authors / Editors</FieldLabel>
+                  <FieldLabel>ชื่อผู้ทำโครงงาน / ผู้จัดทำ *</FieldLabel>
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
                     onClick={() => append({ value: "" })}
                   >
-                    <Plus className="mr-1 h-3 w-3" /> Add Author
+                    <Plus className="mr-1 h-3 w-3" /> เพิ่มผู้จัดทำ
                   </Button>
                 </div>
                 {fields.map((field, index) => (
@@ -140,7 +145,7 @@ export const CreateProject = () => {
               <FormSelect
                 control={form.control}
                 name="chairmanId"
-                label="Chairman (Advisor)"
+                label="อาจารย์ที่ปรึกษา (ประธาน) *"
               >
                 {personnel.map((p) => (
                   <SelectItem key={p.id} value={p.id}>
@@ -153,7 +158,7 @@ export const CreateProject = () => {
                 <FormSelect
                   control={form.control}
                   name="director1Id"
-                  label="Director 1 (Optional)"
+                  label="กรรมการ 1 (ไม่บังคับ)"
                 >
                   {personnel.map((p) => (
                     <SelectItem key={p.id} value={p.id}>
@@ -165,7 +170,7 @@ export const CreateProject = () => {
                 <FormSelect
                   control={form.control}
                   name="director2Id"
-                  label="Director 2 (Optional)"
+                  label="กรรมการ 2 (ไม่บังคับ)"
                 >
                   {personnel.map((p) => (
                     <SelectItem key={p.id} value={p.id}>
@@ -178,22 +183,29 @@ export const CreateProject = () => {
               <FormTextarea
                 control={form.control}
                 name="detail"
-                label="Details / Abstract"
+                label="รายละเอียด / บทคัดย่อโครงงาน"
+              />
+
+              <FormFile
+                control={form.control}
+                name="file"
+                label="อัปโหลดไฟล์เอกสารโครงงาน (PDF / Word)"
               />
             </FieldGroup>
           </form>
         </div>
-        <DialogFooter>
+        <DialogFooter className="px-6 py-4 border-t border-slate-100 dark:border-slate-800">
           <Button
             type="submit"
             form="create-project-form"
             disabled={createProjectMutation.isPending}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
           >
-            Create
+            {createProjectMutation.isPending ? "กำลังบันทึกและอัปโหลดไฟล์..." : "บันทึกข้อมูล"}
           </Button>
           <DialogClose asChild>
             <Button type="button" variant="outline">
-              Cancel
+              ยกเลิก
             </Button>
           </DialogClose>
         </DialogFooter>

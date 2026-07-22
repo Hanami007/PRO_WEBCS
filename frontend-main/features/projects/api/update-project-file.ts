@@ -7,7 +7,7 @@ import { api } from "@/lib/api-client";
 import { Project } from "../types/api";
 import { getProjectQueryOptions } from "./get-project";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 const ACCEPTED_FILE_TYPES = [
   "application/pdf",
   "application/msword",
@@ -57,7 +57,7 @@ export const useUpdateProjectFile = ({
       }
 
       return api.patch(`/projects/${projectId}`, {
-        file: filePayload,
+        file: filePayload?.id ? { id: filePayload.id } : null,
       });
     },
   });

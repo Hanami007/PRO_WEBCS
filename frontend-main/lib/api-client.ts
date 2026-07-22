@@ -139,14 +139,18 @@ async function fetchApi<T>(
     if (success) {
       // Retry the original request with the new cookies
       response = await executeFetch();
-    } else {
-      // If refresh fails, we might want to redirect to login
-      // window.location.href = "/login";
     }
   }
 
   if (!response.ok) {
-    const message = (await response.json()).message || response.statusText;
+    const errorBody = await response.json().catch(() => ({}));
+    const rawMessage = errorBody?.message;
+    const message = Array.isArray(rawMessage)
+      ? rawMessage.join(", ")
+      : typeof rawMessage === "string"
+        ? rawMessage
+        : response.statusText;
+
     if (typeof window !== "undefined") {
       toast.error(message);
     }

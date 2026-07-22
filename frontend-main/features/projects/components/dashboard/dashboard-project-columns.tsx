@@ -2,78 +2,109 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { ProjectActions } from "./project-actions";
-import { FileText } from "lucide-react";
 import { Project } from "../../types/api";
 
 export const projectsColumns: ColumnDef<Project>[] = [
   {
-    accessorKey: "code",
-    header: "Code",
-    size: 100,
-    cell: ({ row }) => <span className="font-bold">{row.original.code}</span>,
-  },
-  {
-    accessorKey: "name",
-    header: "Project Title",
-    size: 400,
+    id: "codeYear",
+    header: "รหัสโครงงาน",
+    size: 130,
     cell: ({ row }) => (
-      <span className="font-medium line-clamp-1">{row.original.name}</span>
+      <span className="font-bold text-slate-800 dark:text-slate-200">
+        {row.original.code} {row.original.year ? `/${row.original.year}` : ""}
+      </span>
     ),
   },
   {
-    accessorKey: "year",
-    header: () => <div className="text-center">Year (BE)</div>,
-    size: 100,
-    cell: ({ row }) => <div className="text-center">{row.original.year}</div>,
-  },
-  {
-    accessorKey: "chairman",
-    header: "Chairman",
-    size: 200,
-    cell: ({ row }) => <span>{row.original.chairman?.fullnameTh || "-"}</span>,
-  },
-  {
-    accessorKey: "file",
-    header: () => <div className="text-center">PDF</div>,
-    size: 80,
+    accessorKey: "name",
+    header: "ชื่อโครงงาน (ลิงค์ไฟล์)",
+    size: 320,
     cell: ({ row }) => {
       const file = row.original.file;
-      if (!file)
-        return <div className="text-center text-muted-foreground">-</div>;
       return (
-        <div className="flex justify-center">
-          <a
-            href={file.url}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center text-primary hover:underline"
-          >
-            <FileText size={14} className="mr-1" /> PDF
-          </a>
+        <div>
+          {file ? (
+            <a
+              href={file.url}
+              target="_blank"
+              rel="noreferrer"
+              className="font-bold text-slate-900 dark:text-slate-100 hover:text-blue-600 underline underline-offset-2 transition-colors line-clamp-2"
+            >
+              {row.original.name}
+            </a>
+          ) : (
+            <span className="font-bold text-slate-900 dark:text-slate-100 line-clamp-2">
+              {row.original.name}
+            </span>
+          )}
         </div>
       );
     },
   },
   {
-    accessorKey: "createdAt",
-    header: () => <div className="text-center">Date</div>,
-    size: 150,
+    accessorKey: "editors",
+    header: "ชื่อผู้ทำโครงงาน",
+    size: 220,
     cell: ({ row }) => {
-      const dateString = row.original.createdAt;
-      if (!dateString) return <div className="text-center">-</div>;
-      const date = new Date(dateString);
+      const editors = row.original.editors || [];
+      if (editors.length === 0) return <span className="text-slate-400">-</span>;
       return (
-        <div className="text-center text-muted-foreground">
-          {new Intl.DateTimeFormat("en-GB", {
-            dateStyle: "medium",
-          }).format(date)}
+        <div className="space-y-0.5 text-slate-800 dark:text-slate-200 font-medium">
+          {editors.map((editor, idx) => (
+            <div key={idx} className="line-clamp-1">
+              {editor}
+            </div>
+          ))}
+        </div>
+      );
+    },
+  },
+  {
+    id: "advisors",
+    header: "ชื่ออาจารย์ที่ปรึกษา",
+    size: 260,
+    cell: ({ row }) => {
+      const { chairman, director1, director2 } = row.original;
+      return (
+        <div className="space-y-1.5 text-xs text-slate-800 dark:text-slate-200">
+          {chairman && (
+            <div>
+              <div className="font-bold text-slate-900 dark:text-slate-100">
+                ประธาน
+              </div>
+              <div className="font-medium">{chairman.fullnameTh}</div>
+            </div>
+          )}
+
+          {director1 && (
+            <div>
+              <div className="font-bold text-slate-900 dark:text-slate-100">
+                กรรมการ
+              </div>
+              <div className="font-medium">{director1.fullnameTh}</div>
+            </div>
+          )}
+
+          {director2 && (
+            <div>
+              <div className="font-bold text-slate-900 dark:text-slate-100">
+                กรรมการ
+              </div>
+              <div className="font-medium">{director2.fullnameTh}</div>
+            </div>
+          )}
+
+          {!chairman && !director1 && !director2 && (
+            <span className="text-slate-400">-</span>
+          )}
         </div>
       );
     },
   },
   {
     id: "actions",
-    size: 80,
+    header: "การจัดการ",
+    size: 100,
     cell: ({ row }) => <ProjectActions project={row.original} />,
   },
 ];

@@ -9,6 +9,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { PersonnelDto } from 'src/personnel/dto/personnel.dto';
+import { FileDto } from 'src/files/dto/file.dto';
 
 export class CreateProjectDto {
   @ApiProperty({ description: 'รหัสโครงงาน', example: 'CS-69-01' })
@@ -75,4 +76,13 @@ export class CreateProjectDto {
   @ValidateNested()
   @Type(() => PersonnelDto)
   director2?: PersonnelDto;
+
+  @ApiPropertyOptional({
+    type: () => FileDto,
+    description: 'ไฟล์เอกสารโครงงาน (PDF)',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => FileDto)
+  file?: FileDto | null;
 }

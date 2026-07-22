@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class FileDto {
@@ -14,5 +14,7 @@ export class FileDto {
     description: 'ที่อยู่ไฟล์ (Path)',
     example: 'personnel/image-123456.jpg',
   })
+  @IsOptional()
+  @IsString()
   path?: string;
 }

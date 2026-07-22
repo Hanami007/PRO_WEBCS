@@ -53,11 +53,16 @@ export class ProjectsService {
         })
       : null;
 
+    const file = createProjectDto.file?.id
+      ? await this.filesService.findById(createProjectDto.file.id)
+      : null;
+
     const project = this.projectsRepository.create({
       ...createProjectDto,
       chairman,
       director1,
       director2,
+      file,
     });
     return await this.projectsRepository.save(project);
   }
