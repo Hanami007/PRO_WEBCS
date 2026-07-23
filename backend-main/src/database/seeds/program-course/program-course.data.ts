@@ -932,4 +932,3 @@ export const PROGRAM_COURSE_SEED_DATA = [
   { programCode: '25700131103057', courseCode: '10301361-68', groupName: 'กลุ่มวิชาหัวข้อพิเศษ (Special Topics) (2570)' },
   { programCode: '25700131103057', courseCode: '10301362-68', groupName: 'กลุ่มวิชาหัวข้อพิเศษ (Special Topics) (2570)' },
 ];
-
