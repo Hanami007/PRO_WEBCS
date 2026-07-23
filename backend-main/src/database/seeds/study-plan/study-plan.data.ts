@@ -355,4 +355,129 @@ export const PROGRAMS_STUDY_PLANS_DATA = [
       },
     ],
   },
+
+  // ==========================================
+  // แผนการศึกษาหลักสูตรปี 2570
+  // ==========================================
+  {
+    code: '25700131103057',
+    studyPlans: [
+      // ----- ปี 1 เทอม 1 -----
+      { course: { code: '10301111-68' }, year: 1, semester: 1 },
+      { course: { code: '10301112-68' }, year: 1, semester: 1 },
+      { course: { code: '10301113-68' }, year: 1, semester: 1 },
+      { course: { code: '10700104' }, year: 1, semester: 1 },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านภาษาและการสื่อสาร รายวิชาภาษาไทย',
+        year: 1,
+        semester: 1,
+        credit: 3,
+      },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต รายวิชาที่ 1',
+        year: 1,
+        semester: 1,
+        credit: 3,
+      },
+
+      // ----- ปี 1 เทอม 2 -----
+      { course: { code: '10301114-68' }, year: 1, semester: 2 },
+      { course: { code: '10301115' }, year: 1, semester: 2 },
+      { course: { code: '10301141-68' }, year: 1, semester: 2 },
+      { course: { code: '10301151' }, year: 1, semester: 2 },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านภาษาและการสื่อสาร รายวิชาภาษาอังกฤษ รายวิชาที่ 2',
+        year: 1,
+        semester: 2,
+        credit: 3,
+      },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านสังคมและความเป็นมนุษย์',
+        year: 1,
+        semester: 2,
+        credit: 3,
+      },
+
+      // ----- ปี 2 เทอม 1 -----
+      { course: { code: '10301211-68' }, year: 2, semester: 1 },
+      { course: { code: '10301221-68' }, year: 2, semester: 1 },
+      { course: { code: '10301222-68' }, year: 2, semester: 1 },
+      { course: { code: '10301241' }, year: 2, semester: 1 },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านภาษาและการสื่อสาร รายวิชาภาษาอังกฤษ รายวิชาที่ 3',
+        year: 2,
+        semester: 1,
+        credit: 3,
+      },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี',
+        year: 2,
+        semester: 1,
+        credit: 3,
+      },
+
+      // ----- ปี 2 เทอม 2 -----
+      { course: { code: '10355205' }, year: 2, semester: 2 },
+      { course: { code: '10301223-68' }, year: 2, semester: 2 },
+      { course: { code: '10301231-68' }, year: 2, semester: 2 },
+      { course: { code: '10301242' }, year: 2, semester: 2 },
+      { course: { code: '10301243' }, year: 2, semester: 2 },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต รายวิชาที่ 2',
+        year: 2,
+        semester: 2,
+        credit: 3,
+      },
+
+      // ----- ปี 3 เทอม 1 -----
+      { course: { code: '10301311-68' }, year: 3, semester: 1 },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านการเป็นผู้ประกอบการ รายวิชาที่ 1',
+        year: 3,
+        semester: 1,
+        credit: 3,
+      },
+      { label: 'วิชาพื้นฐานวิชาชีพและวิชาชีพ วิชาที่ 1', year: 3, semester: 1, credit: 3 },
+      { label: 'วิชาพื้นฐานวิชาชีพและวิชาชีพ วิชาที่ 2', year: 3, semester: 1, credit: 3 },
+      { label: 'วิชาพื้นฐานวิชาชีพและวิชาชีพ วิชาที่ 3', year: 3, semester: 1, credit: 3 },
+      { label: 'วิชาเลือกเสรี วิชาที่ 1', year: 3, semester: 1, credit: 3 },
+
+      // ----- ปี 3 เทอม 2 -----
+      { course: { code: '10301330' }, year: 3, semester: 2 },
+      {
+        label: 'หมวดวิชาศึกษาทั่วไป สมรรถนะด้านการเป็นผู้ประกอบการ รายวิชาที่ 2',
+        year: 3,
+        semester: 2,
+        credit: 3,
+      },
+      { label: 'วิชาพื้นฐานวิชาชีพและวิชาชีพ วิชาที่ 4', year: 3, semester: 2, credit: 3 },
+      { label: 'วิชาพื้นฐานวิชาชีพและวิชาชีพ วิชาที่ 5', year: 3, semester: 2, credit: 3 },
+      { label: 'วิชาพื้นฐานวิชาชีพและวิชาชีพ วิชาที่ 6', year: 3, semester: 2, credit: 3 },
+
+      // ----- ปี 4 เทอม 1 -----
+      {
+        course: { code: '10301497' },
+        label: 'สหกิจศึกษา หรือ',
+        year: 4,
+        semester: 1,
+      },
+      {
+        course: { code: '10301498' },
+        label: 'การเรียนรู้อิสระ หรือ',
+        year: 4,
+        semester: 1,
+      },
+      {
+        course: { code: '10301499' },
+        label: 'การศึกษา หรือ ฝึกงาน หรือ ฝึกอบรมต่างประเทศ',
+        year: 4,
+        semester: 1,
+      },
+
+      // ----- ปี 4 เทอม 2 -----
+      { course: { code: '10301461' }, year: 4, semester: 2 },
+      { label: 'วิชาพื้นฐานวิชาชีพและวิชาชีพ วิชาที่ 7', year: 4, semester: 2, credit: 3 },
+      { label: 'วิชาเลือกเสรี วิชาที่ 2', year: 4, semester: 2, credit: 3 },
+    ],
+  },
 ];

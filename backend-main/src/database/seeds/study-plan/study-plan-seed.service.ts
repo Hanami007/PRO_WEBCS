@@ -33,12 +33,15 @@ export class StudyPlanSeedService {
         if (!plan.course) {
           const planEntity = await this.repository.findOne({
             where: {
+              program: { id: programEntity?.id },
               label: plan.label,
+              year: plan.year,
+              semester: plan.semester,
             },
           });
 
           if (planEntity) {
-            console.warn(`Plan with Label ${plan.label} exists. Skipping.`);
+            console.warn(`Plan with Label ${plan.label} exists for program ${program.code}. Skipping.`);
             continue;
           }
 
@@ -54,15 +57,18 @@ export class StudyPlanSeedService {
         } else {
           const planEntity = await this.repository.findOne({
             where: {
+              program: { id: programEntity?.id },
               course: {
                 code: plan.course.code,
               },
+              year: plan.year,
+              semester: plan.semester,
             },
           });
 
           if (planEntity) {
             console.warn(
-              `Plan with Course ${plan.course.code} exists. Skipping.`,
+              `Plan with Course ${plan.course.code} exists for program ${program.code}. Skipping.`,
             );
             continue;
           }

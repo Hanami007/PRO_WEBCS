@@ -120,6 +120,60 @@ export class CourseGroupSeedService {
       { name: 'กลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์', credits: 6 },
       { name: 'กลุ่มมนุษยศาสตร์', credits: 6 },
       { name: 'กลุ่มสังคมศาสตร์', credits: 6 },
+
+      // กลุ่มวิชาของหลักสูตรปี 2570
+      {
+        name: 'หมวดวิชาศึกษาทั่วไป (2570)',
+        credits: 30,
+        children: [
+          {
+            name: 'สมรรถนะด้านภาษาและการสื่อสาร',
+            credits: 12,
+            children: [
+              { name: 'รายวิชาภาษาไทย (2570)', credits: 3 },
+              { name: 'รายวิชาภาษาต่างประเทศ (2570)', credits: 9 },
+            ],
+          },
+          { name: 'สมรรถนะด้านสังคมและความเป็นมนุษย์', credits: 3 },
+          {
+            name: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี',
+            credits: 3,
+          },
+          { name: 'สมรรถนะด้านการเป็นผู้ประกอบการ', credits: 6 },
+          { name: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต', credits: 6 },
+        ],
+      },
+      {
+        name: 'หมวดวิชาเฉพาะ (2570)',
+        credits: 84,
+        children: [
+          { name: 'กลุ่มวิชาแกน (2570)', credits: 18 },
+          { name: 'กลุ่มวิชาเฉพาะด้าน (2570)', credits: 45 },
+          {
+            name: 'กลุ่มวิชาพื้นฐานวิชาชีพและวิชาชีพ (2570)',
+            credits: 21,
+            children: [
+              {
+                name: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)',
+                credits: 27,
+              },
+              {
+                name: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)',
+                credits: 27,
+              },
+              {
+                name: 'กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย (Digital Infrastructure & Emerging Technologies)',
+                credits: 21,
+              },
+              {
+                name: 'กลุ่มวิชาหัวข้อพิเศษ (Special Topics) (2570)',
+                credits: 6,
+              },
+            ],
+          },
+        ],
+      },
+      { name: 'หมวดวิชาเลือกเสรี (2570)', credits: 6 },
     ];
 
     for (const groupData of data) {

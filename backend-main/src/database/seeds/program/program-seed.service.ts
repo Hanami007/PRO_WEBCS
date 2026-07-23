@@ -8,7 +8,7 @@ export class ProgramSeedService {
   constructor(
     @InjectRepository(Program)
     private repository: Repository<Program>,
-  ) {}
+  ) { }
 
   async run() {
     const programs = [
@@ -58,6 +58,22 @@ export class ProgramSeedService {
         languages: 'ภาษาไทย',
         isActive: true,
         isCurrent: false,
+      },
+      // หลักสูตร 2570
+      {
+        code: '25700131103057',
+        nameTh: 'หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์',
+        nameEn: 'Bachelor of Science Program in Computer Science',
+        degreeThFull: 'วิทยาศาสตรบัณฑิต (วิทยาการคอมพิวเตอร์)',
+        degreeEnFull: 'Bachelor of Science (Computer Science)',
+        degreeTh: 'วท.บ. (วิทยาการคอมพิวเตอร์)',
+        degreeEn: 'B.Sc. (Computer Science)',
+        credits: 120,
+        revision: '2570',
+        duration: '4 ปี',
+        languages: 'ภาษาไทย/ภาษาอังกฤษ',
+        isActive: true,
+        isCurrent: true,
       },
     ];
 

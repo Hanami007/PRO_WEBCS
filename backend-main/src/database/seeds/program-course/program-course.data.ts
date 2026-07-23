@@ -801,4 +801,135 @@ export const PROGRAM_COURSE_SEED_DATA = [
     courseCode: 'SC497',
     groupName: 'กลุ่มวิชาเอกบังคับ',
   },
+
+  // ==========================================
+  // หลักสูตรปี 2570
+  // ==========================================
+
+  // --- GE: สมรรถนะด้านภาษาและการสื่อสาร - ภาษาไทย ---
+  { programCode: '25700131103057', courseCode: '10700101', groupName: 'รายวิชาภาษาไทย (2570)' },
+  { programCode: '25700131103057', courseCode: '10700102', groupName: 'รายวิชาภาษาไทย (2570)' },
+
+  // --- GE: สมรรถนะด้านภาษาและการสื่อสาร - ภาษาต่างประเทศ ---
+  { programCode: '25700131103057', courseCode: '10700104', groupName: 'รายวิชาภาษาต่างประเทศ (2570)' },
+  { programCode: '25700131103057', courseCode: '10700105-68', groupName: 'รายวิชาภาษาต่างประเทศ (2570)' },
+  { programCode: '25700131103057', courseCode: '10700106', groupName: 'รายวิชาภาษาต่างประเทศ (2570)' },
+  { programCode: '25700131103057', courseCode: '10700107', groupName: 'รายวิชาภาษาต่างประเทศ (2570)' },
+  { programCode: '25700131103057', courseCode: '10700108', groupName: 'รายวิชาภาษาต่างประเทศ (2570)' },
+
+  // --- GE: สมรรถนะด้านสังคมและความเป็นมนุษย์ ---
+  { programCode: '25700131103057', courseCode: '10100202', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10300201', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700202', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700203', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700204', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700205', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700209', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700211', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700212', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700213', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700215', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10700216', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+  { programCode: '25700131103057', courseCode: '10800201', groupName: 'สมรรถนะด้านสังคมและความเป็นมนุษย์' },
+
+  // --- GE: สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี ---
+  { programCode: '25700131103057', courseCode: '10300301', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+  { programCode: '25700131103057', courseCode: '10300302', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+  { programCode: '25700131103057', courseCode: '10300303', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+  { programCode: '25700131103057', courseCode: '10300304', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+  { programCode: '25700131103057', courseCode: '10300305', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+  { programCode: '25700131103057', courseCode: '10400301', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+  { programCode: '25700131103057', courseCode: '10400303', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+  { programCode: '25700131103057', courseCode: '10800301', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+  { programCode: '25700131103057', courseCode: '10800302', groupName: 'สมรรถนะด้านการคิดคำนวณ การใช้เหตุผล และการใช้เทคโนโลยี' },
+
+  // --- GE: สมรรถนะด้านการเป็นผู้ประกอบการ ---
+  { programCode: '25700131103057', courseCode: '10100401', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10200401', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10200402', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10200403', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10200404', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10200405', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10300401', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10300402', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10300403', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10400401', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10400402', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10500401', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+  { programCode: '25700131103057', courseCode: '10800401', groupName: 'สมรรถนะด้านการเป็นผู้ประกอบการ' },
+
+  // --- GE: สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต ---
+  { programCode: '25700131103057', courseCode: '10100501', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10300502', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10300503', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10300504', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10300505', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10400501', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10700501', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10700502', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10700503', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10700504', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+  { programCode: '25700131103057', courseCode: '10800501', groupName: 'สมรรถนะด้านการทำงานและการเรียนรู้ตลอดชีวิต' },
+
+  // --- วิชาแกน (2570) ---
+  { programCode: '25700131103057', courseCode: '10301111-68', groupName: 'กลุ่มวิชาแกน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301112-68', groupName: 'กลุ่มวิชาแกน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301113-68', groupName: 'กลุ่มวิชาแกน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301115', groupName: 'กลุ่มวิชาแกน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301211-68', groupName: 'กลุ่มวิชาแกน (2570)' },
+  { programCode: '25700131103057', courseCode: '10355205', groupName: 'กลุ่มวิชาแกน (2570)' },
+
+  // --- วิชาเฉพาะด้าน (2570) ---
+  { programCode: '25700131103057', courseCode: '10301114-68', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301141-68', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301151', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301221-68', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301222-68', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301223-68', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301231-68', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301241', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301242', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301243', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301311-68', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301330', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301461', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301497', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301498', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+  { programCode: '25700131103057', courseCode: '10301499', groupName: 'กลุ่มวิชาเฉพาะด้าน (2570)' },
+
+  // --- กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (AI & Data Science) ---
+  { programCode: '25700131103057', courseCode: '10301331-68', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+  { programCode: '25700131103057', courseCode: '10301332-68', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+  { programCode: '25700131103057', courseCode: '10301333-68', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+  { programCode: '25700131103057', courseCode: '10301334-68', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+  { programCode: '25700131103057', courseCode: '10301335-68', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+  { programCode: '25700131103057', courseCode: '10301336-68', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+  { programCode: '25700131103057', courseCode: '10301337', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+  { programCode: '25700131103057', courseCode: '10301338', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+  { programCode: '25700131103057', courseCode: '10301339', groupName: 'กลุ่มวิชาปัญญาประดิษฐ์และวิทยาการข้อมูล (Artificial Intelligence & Data Science)' },
+
+  // --- กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล ---
+  { programCode: '25700131103057', courseCode: '10301341-68', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+  { programCode: '25700131103057', courseCode: '10301342-68', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+  { programCode: '25700131103057', courseCode: '10301343-68', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+  { programCode: '25700131103057', courseCode: '10301344-68', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+  { programCode: '25700131103057', courseCode: '10301345-68', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+  { programCode: '25700131103057', courseCode: '10301346-68', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+  { programCode: '25700131103057', courseCode: '10301347-68', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+  { programCode: '25700131103057', courseCode: '10301348', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+  { programCode: '25700131103057', courseCode: '10301349', groupName: 'กลุ่มวิชาวิศวกรรมซอฟต์แวร์และนวัตกรรมดิจิทัล (Software Engineering & Digital Innovation)' },
+
+  // --- กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย ---
+  { programCode: '25700131103057', courseCode: '10301351-68', groupName: 'กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย (Digital Infrastructure & Emerging Technologies)' },
+  { programCode: '25700131103057', courseCode: '10301352-68', groupName: 'กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย (Digital Infrastructure & Emerging Technologies)' },
+  { programCode: '25700131103057', courseCode: '10301353-68', groupName: 'กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย (Digital Infrastructure & Emerging Technologies)' },
+  { programCode: '25700131103057', courseCode: '10301354-68', groupName: 'กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย (Digital Infrastructure & Emerging Technologies)' },
+  { programCode: '25700131103057', courseCode: '10301355-68', groupName: 'กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย (Digital Infrastructure & Emerging Technologies)' },
+  { programCode: '25700131103057', courseCode: '10301356-68', groupName: 'กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย (Digital Infrastructure & Emerging Technologies)' },
+  { programCode: '25700131103057', courseCode: '10301357-68', groupName: 'กลุ่มวิชาโครงสร้างพื้นฐานดิจิทัลและเทคโนโลยีล้ำสมัย (Digital Infrastructure & Emerging Technologies)' },
+
+  // --- กลุ่มวิชาหัวข้อพิเศษ ---
+  { programCode: '25700131103057', courseCode: '10301361-68', groupName: 'กลุ่มวิชาหัวข้อพิเศษ (Special Topics) (2570)' },
+  { programCode: '25700131103057', courseCode: '10301362-68', groupName: 'กลุ่มวิชาหัวข้อพิเศษ (Special Topics) (2570)' },
 ];
+
